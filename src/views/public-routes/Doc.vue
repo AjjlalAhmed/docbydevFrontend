@@ -2,6 +2,12 @@
   <div class="wraper">
     <section class="left"></section>
     <section v-if="docData" class="doc">
+      <div class="back">
+        <router-link class="back-btn" to="/">
+          <i class="fa fa-angle-left" aria-hidden="true"></i>
+          back to explore
+        </router-link>
+      </div>
       <div class="doc-top">
         <h1 class="title">
           {{ docData.doctitle }}
@@ -55,6 +61,7 @@ import higlightJS from "highlight.js";
 export default {
   name: "Doc",
   setup() {
+    // Variables
     const ShowdownService = showdown;
     const HljsService = higlightJS;
     const converter = new ShowdownService.Converter();
@@ -62,6 +69,7 @@ export default {
     const router = useRouter();
     const docData = ref(null);
     const id = ref(route.query.id);
+    //  Life cycle
     onBeforeMount(async () => {
       const response = await fetch(
         `${process.env.VUE_APP_HOST}getdata/${id.value}`
@@ -69,11 +77,10 @@ export default {
       const data = await response.json();
       if (data.error == null) {
         docData.value = data.docs[0];
-        console.log(data.docs[0]);
         setTimeout(() => {
-          const aCodes = document.getElementsByTagName("pre");
-          for (var i = 0; i < aCodes.length; i++) {
-            HljsService.highlightBlock(aCodes[i]);
+          const pre = document.getElementsByTagName("pre");
+          for (var i = 0; i < pre.length; i++) {
+            HljsService.highlightBlock(pre[i]);
           }
         }, 200);
       } else {
@@ -85,19 +92,31 @@ export default {
 };
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .wraper {
   display: flex;
   justify-content: space-between;
+
   .left {
   }
   .doc {
     flex: 2;
     max-width: 850px;
-    margin: 20px auto;
+    margin: 50px auto;
     border: 1px solid #2222;
     padding: 50px;
     border-radius: 5px;
+    .back {
+      max-width: 1000px;
+      margin: auto;
+      margin-bottom: 50px;
+      .back-btn {
+        font-size: 1rem;
+        color: rgb(88, 87, 87);
+        text-transform: capitalize;
+        text-decoration: none;
+      }
+    }
     .doc-top {
       .title {
         font-size: 2rem;
@@ -118,6 +137,7 @@ export default {
           padding: 5px;
           border-radius: 3px;
           text-transform: capitalize;
+          font-weight: 700;
           $num-colors: 100;
           $base-color: #996b4d;
           $spectrum: 360deg;
@@ -151,51 +171,74 @@ export default {
         }
       }
     }
-    .doc-html {
-      p {
-        padding: 5px 0px;
-        font-size: 1rem;
-        color: #000;
-        line-height: 1.5rem;
-        code{
-          display: inline-block;
-          white-space: normal;
-          word-break: break-all;
-          word-wrap: break-word;
-        }
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        padding: 10px 0px;
-        font-weight: 900;
-      }
-      img {
-        width: 100%;
-      }
-      pre {
-        padding: 10px;
-        border-radius: 5px;
-        overflow: auto;
-        width: 100%;
-      }
-      iframe{
-        width: 100%;
-      }
-      strong{
-        display: inline-block;
-      }
-      a{
-        display: inline-block;
-      }
+    .doc-html ::v-deep p {
+      padding: 5px 0px;
+      font-size: 1.1rem;
+      line-height: 1.8rem;
+      letter-spacing: 1px;
+
+      word-wrap: break-word;
+      white-space: normal;
+    }
+    .doc-html ::v-deep pre {
+      padding: 10px;
+      overflow: scroll;
+      font-family: "Courier Prime", monospace;
+    }
+    .doc-html ::v-deep code {
+      padding: 10px;
+      overflow: scroll;
+    }
+    .doc-html ::v-deep h1 {
+      padding: 10px 0px;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+    .doc-html ::v-deep h2 {
+      padding: 10px 0px;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+    .doc-html ::v-deep h3 {
+      padding: 10px 0px;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+    .doc-html ::v-deep h4 {
+      padding: 10px 0px;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+    .doc-html ::v-deep h5 {
+      padding: 10px 0px;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+    .doc-html ::v-deep h6 {
+      padding: 10px 0px;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+    .doc-html ::v-deep img {
+      width: 100%;
+    }
+    .doc-html ::v-deep iframe {
+      width: 100%;
+    }
+    .doc-html ::v-deep strong {
+      display: inline-block;
+    }
+    .doc-html ::v-deep a {
+      display: inline-block;
+      color: $primary-color;
+    }
+    li {
     }
   }
   .right {
   }
 }
+// Media queries
 @media only screen and(max-width:1320px) {
   .wraper {
     .left {

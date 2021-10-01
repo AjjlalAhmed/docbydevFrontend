@@ -2,9 +2,11 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/public-routes/Home.vue";
 import Signup from "../views/public-routes/Signup.vue";
 import Login from "../views/public-routes/Login.vue";
-import Profile from "../views/public-routes/Profile.vue";
+import Profile from "../views/public-routes/UserPublicProfile.vue";
 import Doc from "../views/public-routes/Doc.vue";
 import UserProfile from "../views/user-routes/UserProfile.vue";
+import EditProfile from "../views/user-routes/EditProfile.vue";
+import EditDoc from "../views/user-routes/EditDoc.vue";
 import AddDoc from "../views/user-routes/AddDoc.vue";
 import store from "../store/index";
 const routes = [
@@ -62,9 +64,33 @@ const routes = [
         },
     },
     {
+        path: "/user/editprofile",
+        name: "EditProfile",
+        component: EditProfile,
+        beforeEnter: async(to, from, next) => {
+            if (store.getters.currentToken) {
+                next();
+            } else {
+                next({ name: "Login" });
+            }
+        },
+    },
+    {
         path: "/user/adddoc",
         name: "AddDoc",
         component: AddDoc,
+        beforeEnter: async(to, from, next) => {
+            if (store.getters.currentToken) {
+                next();
+            } else {
+                next({ name: "Login" });
+            }
+        },
+    },
+    {
+        path: "/user/editdoc",
+        name: "EditDoc",
+        component: EditDoc,
         beforeEnter: async(to, from, next) => {
             if (store.getters.currentToken) {
                 next();
@@ -80,18 +106,30 @@ const routes = [
             sessionStorage.removeItem("username");
             sessionStorage.removeItem("useremail");
             sessionStorage.removeItem("userid");
-            sessionStorage.removeItem("bio", null);
-            sessionStorage.removeItem("skills", null);
-            sessionStorage.removeItem("profileimages", null);
-            sessionStorage.removeItem("joined", null);
+            sessionStorage.removeItem("bio");
+            sessionStorage.removeItem("skills");
+            sessionStorage.removeItem("profileimages");
+            sessionStorage.removeItem("joined");
+            sessionStorage.removeItem("address");
+            sessionStorage.removeItem("birthday");
+            sessionStorage.removeItem("gender");
+            sessionStorage.removeItem("phone");
+            sessionStorage.removeItem("profession");
+            sessionStorage.removeItem("site");
             store.commit("addToken", null);
             store.commit("addUsername", null);
             store.commit("addUseremail", null);
             store.commit("addUserid", null);
-            store.commit("bio", null);
-            store.commit("skills", null);
-            store.commit("profileimages", null);
-            store.commit("joined", null);
+            store.commit("addBio", null);
+            store.commit("addSkills", null);
+            store.commit("addProfileimage", null);
+            store.commit("addJoined", null);
+            store.commit("addAddress", null);
+            store.commit("addBirthday", null);
+            store.commit("addGender", null);
+            store.commit("addPhone", null);
+            store.commit("addProfession", null);
+            store.commit("addSite", null);
             next({ name: "Login" });
         },
     },

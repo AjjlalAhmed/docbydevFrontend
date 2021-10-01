@@ -52,6 +52,7 @@
       </ul>
     </nav>
   </header>
+  <!-- Header  -->
 </template>
 
 <script>
@@ -60,7 +61,6 @@ import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 export default {
   name: "Navbar",
-
   setup() {
     // Variables
     const active = ref(window.location.pathname);
@@ -87,7 +87,7 @@ export default {
 
 <style lang="scss" scope>
 header {
-  background: #000;
+  background: $secondary-color;
   .nav {
     display: flex;
     justify-content: space-around;
@@ -95,13 +95,15 @@ header {
     flex-wrap: wrap;
     border-bottom: 1px solid #2222;
     .logo {
+      padding: 5px;
       a {
         text-decoration: none;
-        color: yellow;
+        color: $primary-color;
         font-size: 1.5rem;
         text-transform: uppercase;
-        font-weight: 400;
-        padding: 10px;
+        font-weight: 900;
+        padding: 15px 10px;
+        letter-spacing: 1px;
       }
     }
     .nav-ul {
@@ -120,20 +122,20 @@ header {
           cursor: pointer;
           padding: 5px 10px;
           &:hover {
-            background: yellow;
-            color: #000;
+            background: $primary-color;
+            color: $secondary-color;
             border-radius: 3px;
           }
         }
         .action-btn {
-          background: yellow;
+          background: $primary-color;
           padding: 5px 20px;
-          color: #000;
+          color: $secondary-color;
           border: 0px;
           border-radius: 3px;
-          font-weight: 700;
+          font-weight: 900;
           text-transform: uppercase;
-          font-size: 0.9rem;
+          font-size: 1rem;
         }
       }
       .select {
@@ -155,24 +157,30 @@ header {
             flex-direction: column;
             width: 200px;
             background: #fff;
-            padding: 10px;
+
             border: 1px solid #2222;
+            border-radius: 5px;
             a {
-              color: #000;
+              color: $secondary-color;
               font-size: 1rem;
               padding: 10px 20px;
               font-weight: 400;
+              i {
+                // color: $primary-color;
+                padding: 0px 5px;
+              }
               &:hover {
                 background: rgba(182, 182, 182, 0.067);
-                color: #000;
+                color: $secondary-color;
                 border-radius: 3px;
               }
             }
             .username {
               padding: 10px;
               border-bottom: 1px solid #5555;
-              font-weight: 700;
-              font-size: 0.9rem;
+              font-weight: 900;
+              font-size: 1rem;
+              text-align: center;
             }
             .logout {
               padding: 10px;

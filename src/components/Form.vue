@@ -1,5 +1,5 @@
 <template>
-  <!-- form-warper  -->
+  <!-- Form-warper  -->
   <div class="form-wraper">
     <!-- sec-1  -->
     <section class="sec-1">
@@ -57,12 +57,12 @@
       </div>
     </section>
   </div>
+  <!-- Form-warper  -->
 </template>
 
 <script>
 import { ref } from "@vue/reactivity";
 import { useRoute, useRouter } from "vue-router";
-import { useStore } from "vuex";
 import storeUserInfo from "../composable/storeUserInfoComposable";
 export default {
   name: "Signup",
@@ -70,7 +70,6 @@ export default {
     // Variables
     const route = useRoute();
     const router = useRouter();
-    const store = useStore();
     const routeName = route.name;
     const name = ref("");
     const email = ref("");
@@ -88,9 +87,7 @@ export default {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          payload,
-        }),
+        body: JSON.stringify(payload),
       });
       const data = await response.json();
       if (data.error == null) {
@@ -102,6 +99,8 @@ export default {
         }
       } else if (data.error == "Email") {
         emailError.value = data.errorMessage;
+      } else if (data.error == "Password") {
+        passwordError.value = data.errorMessage;
       } else if (data.error == "Username") {
         nameError.value = data.errorMessage;
       }
@@ -180,14 +179,14 @@ export default {
       .logo {
         font-size: 1.2rem;
         text-transform: uppercase;
-        color: #000;
+        color: $secondary-color;
         padding: 20px 0px;
         font-weight: 900;
       }
       .title {
         font-size: 1rem;
         text-transform: capitalize;
-        color: #000;
+        color: $secondary-color;
         font-weight: 400;
         white-space: nowrap;
       }
@@ -211,7 +210,7 @@ export default {
           width: 250px;
           min-width: 100px;
           &:focus {
-            border: 1px solid #000;
+            border: 1px solid $secondary-color;
             outline: none;
           }
         }
@@ -224,7 +223,7 @@ export default {
         }
         .submit-btn {
           width: 100%;
-          background: #000;
+          background: $primary-color;
           color: #fff;
           font-size: 1rem;
           text-transform: capitalize;
@@ -232,6 +231,7 @@ export default {
           border-radius: 3px;
           padding: 5px 10px;
           cursor: pointer;
+          font-weight: 700;
         }
       }
     }

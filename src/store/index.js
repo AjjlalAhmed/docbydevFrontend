@@ -9,6 +9,12 @@ export default createStore({
         skills: sessionStorage.getItem("skills"),
         profileimage: sessionStorage.getItem("profileimages"),
         jonied: sessionStorage.getItem("joined"),
+        address: sessionStorage.getItem("address"),
+        birthday: sessionStorage.getItem("birthday"),
+        gender: sessionStorage.getItem("gender"),
+        phone: sessionStorage.getItem("phone"),
+        profession: sessionStorage.getItem("profession"),
+        site: sessionStorage.getItem("site"),
     },
     mutations: {
         addToken(state, payload) {
@@ -35,6 +41,24 @@ export default createStore({
         addJoined(state, payload) {
             state.jonied = payload;
         },
+        addAddress(state, payload) {
+            state.address = payload;
+        },
+        addBirthday(state, payload) {
+            state.birthday = payload;
+        },
+        addGender(state, payload) {
+            state.gender = payload;
+        },
+        addPhone(state, payload) {
+            state.phone = payload;
+        },
+        addProfession(state, payload) {
+            state.profession = payload;
+        },
+        addSite(state, payload) {
+            state.site = payload;
+        },
     },
     getters: {
         currentToken: (state) => {
@@ -60,6 +84,24 @@ export default createStore({
         },
         currentJoined(state) {
             return state.jonied;
+        },
+        currentAddress(state) {
+            return state.address;
+        },
+        currentGender(state) {
+            return state.gender;
+        },
+        currentPhone(state) {
+            return state.phone;
+        },
+        currentBirthday(state) {
+            return state.birthday;
+        },
+        currentProfession(state) {
+            return state.profession;
+        },
+        currentSite(state) {
+            return state.site;
         },
     },
     actions: {},

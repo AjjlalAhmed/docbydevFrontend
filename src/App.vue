@@ -1,34 +1,35 @@
 <template>
+  <!-- Container  -->
   <div class="container">
+    <!-- Navbar  -->
     <Navbar />
+    <!-- Main  -->
     <router-view class="view" />
+    <!-- Footer  -->
     <Footer />
   </div>
+  <!-- Container  -->
 </template>
 <script>
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
-import { ref } from "@vue/runtime-core";
-import { useStore } from "vuex";
-import { useRouter } from "vue-router";
 export default {
   name: "App",
   components: { Navbar, Footer },
-  setup() {
-    const store = useStore();
-    const router = useRouter();
-    return {};
-  },
+  setup() {},
 };
 </script>
 <style lang="scss">
 * {
+  // Deafult styles
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap");
+  //  Fontawesome cdn
   @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
-  font-family: "Poppins", sans-serif;
+  // Google font cdn
+ @import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700;900&display=swap');
+  font-family: 'Titillium Web', sans-serif;
 }
 .container {
   min-height: 100vh;
