@@ -1,6 +1,9 @@
 <template>
+  <!-- Wraper  -->
   <div class="wraper">
+    <!-- Section left  -->
     <section class="left"></section>
+    <!-- Doc data section  -->
     <section v-if="docData" class="doc">
       <div class="back">
         <router-link class="back-btn" to="/">
@@ -49,8 +52,10 @@
       </div>
       <div class="doc-html" v-html="converter.makeHtml(docData.docdata)"></div>
     </section>
+    <!-- Section right  -->
     <section class="right"></section>
   </div>
+  <!-- Wraper  -->
 </template>
 
 <script>
@@ -72,7 +77,7 @@ export default {
     //  Life cycle
     onBeforeMount(async () => {
       const response = await fetch(
-        `${process.env.VUE_APP_HOST}getdata/${id.value}`
+        `${process.env.VUE_APP_HOST}getdoc/${id.value}`
       );
       const data = await response.json();
       if (data.error == null) {
@@ -109,7 +114,7 @@ export default {
     .back {
       max-width: 1000px;
       margin: auto;
-      margin-bottom: 50px;
+      margin-bottom: 20px;
       .back-btn {
         font-size: 1rem;
         color: rgb(88, 87, 87);
@@ -119,7 +124,7 @@ export default {
     }
     .doc-top {
       .title {
-        font-size: 2rem;
+        font-size: 2.5rem;
         font-weight: 900;
         text-transform: capitalize;
         line-height: 2.8rem;

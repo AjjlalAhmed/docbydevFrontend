@@ -29,9 +29,13 @@
         <div class="category">
           <!-- Category ul  -->
           <ul>
-            <li class="active">feed</li>
-            <li>latest</li>
-            <li>top</li>
+            <li @click="changeCategory('feed')" :ref="categoryItemArray">
+              feed
+            </li>
+            <li @click="changeCategory('latest')" :ref="categoryItemArray">
+              latest
+            </li>
+            <li @click="changeCategory('top')" :ref="categoryItemArray">top</li>
           </ul>
         </div>
       </div>
@@ -76,12 +80,10 @@
                     >
                       <i class="fa fa-trash" aria-hidden="true"></i> delete
                     </li>
-                    <li>
+                    <router-link :to="`/user/editdoc?docid=${doc.id}`">
                       <i class="fa fa-pencil" aria-hidden="true"></i>
-                      <router-link :to="`/user/editdoc?docid=${doc.id}`"
-                        >edit</router-link
-                      >
-                    </li>
+                      edit</router-link
+                    >
                   </ul>
                 </li>
               </ul>
@@ -123,7 +125,7 @@
         </li>
       </ul>
       <!-- Error message  -->
-      <div v-if="errorMessage && docData == 'Empty'" class="error-message">
+      <div v-if="errorMessage || docData == 'Empty'" class="error-message">
         <h1>Docs not found</h1>
         <div class="not-found__img">
           <img src="@/assets/images/undraw_No_data_re_kwbl.svg" alt="" />
@@ -156,10 +158,21 @@
               alt=""
             />
           </div>
+
           <p class="question">
             This action cannot be undone. This will permanently delete the
-            <b>{{ deletingDocName.slice(0, 30) }}...</b> doc.Are you sure about
-            deleting
+            <b v-if="deletingDocName.length >= 30"
+              ><abbr :title="deletingDocName"
+                >{{ deletingDocName.slice(0, 30) }}...</abbr
+              ></b
+            >
+            doc.Are you sure about
+            <b v-if="deletingDocName.length < 30"
+              ><abbr :title="deletingDocName">{{
+                deletingDocName.slice(0, 30)
+              }}</abbr></b
+            >
+            doc.Are you sure about deleting
           </p>
           <div class="btn">
             <span @click="deleteDoc" class="exits-model">delete</span>
@@ -187,6 +200,7 @@ export default {
     const router = useRouter();
     const likeBtn = ref([]);
     const ellipsis = ref([]);
+    const categoryItem = ref([]);
     const docData = ref(props.docs);
     const docid = ref(null);
     const host = process.env.VUE_APP_HOST;
@@ -255,17 +269,23 @@ export default {
         docids.value = [];
         // Checking if error
         if (data.error == null) {
-          likeBtn.value.forEach((item) => {
+          const likedPostIds = ref([]);
+          data.liked.forEach((item) => {
+            likedPostIds.value.push(item.postid);
+          });
+          likeBtn.value.forEach((item, index) => {
+            item.firstElementChild.className = "";
+            item.firstElementChild.classList.add("fa", "fa-heart-o");
+            item.firstElementChild.style.color = "#000";
+          });
+          likeBtn.value.forEach((item, index) => {
             if (
-              data.liked.some(
-                (like) => like["postid"] == item.getAttribute("data-id")
-              )
+              likedPostIds.value.includes(Number(item.getAttribute("data-id")))
             ) {
               item.firstElementChild.className = "";
               item.firstElementChild.classList.add("fa", "fa-heart");
               item.firstElementChild.style.color = "#ec4d37";
             }
-            docids.value = [];
           });
         }
       } else {
@@ -286,6 +306,12 @@ export default {
     const ellipsisArray = (el) => {
       if (el) {
         ellipsis.value.push(el);
+      }
+    };
+    // This collect all ul tags
+    const categoryItemArray = (el) => {
+      if (el) {
+        categoryItem.value.push(el);
       }
     };
     // This show & hide ellipsis
@@ -323,6 +349,18 @@ export default {
       deletingDocName.value = name;
       deleteModel.value = !deleteModel.value;
       docid.value = id;
+    };
+    const changeCategory = async (category) => {
+      const response = await fetch(`${host}getdoc?category=${category}`);
+      const data = await response.json();
+      if (data.error == null) {
+        likeBtn.value = [];
+        docData.value = null;
+        docData.value = data.docs;
+        checkIfLiked(data.docs);
+      } else {
+        errorMessage.value = props.docs;
+      }
     };
     if (
       docData.value != null &&
@@ -366,6 +404,8 @@ export default {
       deleteModel,
       deletingDocName,
       deleteDoc,
+      categoryItemArray,
+      changeCategory,
     };
   },
 };
@@ -507,26 +547,24 @@ export default {
                   padding: 5px;
                   position: absolute;
                   right: 10px;
-                  width: 120px;
+                  width: 150px;
                   z-index: 5;
-                  li {
-                    font-size: 0.9rem;
+                  li,
+                  a {
+                    font-size: 1rem;
                     color: $secondary-color;
                     text-transform: capitalize;
-                    font-weight: 400;
+                    font-weight: 900;
                     letter-spacing: 1px;
                     transition: 0.1s ease-in-out;
+                    text-decoration: none;
+                    display: block;
+                    padding: 10px;
                     &:hover {
                       background: rgba(94, 93, 93, 0.067);
                     }
                     i {
-                      color: $primary-color;
                       font-size: 0.9rem;
-                    }
-                    a {
-                      color: $secondary-color;
-                      text-decoration: none;
-                      padding: 5px;
                     }
                   }
                   li:first-child {
@@ -601,13 +639,15 @@ export default {
       }
     }
     .error-message {
-      border: 1px solid #2222;
+      border: 1px solid #1111;
       background: #fff;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 20px;
+      max-width: 1000px;
+      margin: auto;
       h1 {
         text-align: center;
         font-size: 2rem;
@@ -662,7 +702,7 @@ export default {
           background: $primary-color;
           color: #fff;
           font-size: 1rem;
-          font-weight: 400;
+          font-weight: 700;
           text-transform: capitalize;
           padding: 5px 20px;
           margin: 10px;

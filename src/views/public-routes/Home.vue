@@ -18,16 +18,17 @@ export default {
     const host = process.env.VUE_APP_HOST;
     const docData = ref(null);
     // Functions
+    
     // This function fetch docs from server
     const fetchingData = async () => {
       // Fetching docs
-      const response = await fetch(`${process.env.VUE_APP_HOST}getdata`);
+      const response = await fetch(`${process.env.VUE_APP_HOST}getdoc?category=latest`);
       const data = await response.json();
       // Checking if error
       if (data.error == null) {
         docData.value = data.docs;
       } else {
-        errorMessage.value = data.errorMessage;
+        docData.value = data.error;
       }
     };
     // Life cycle
