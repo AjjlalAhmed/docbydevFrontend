@@ -95,7 +95,6 @@ export default {
         .innerHTML;
       // Converting html to markdown
       const markdown = turndownService.turndown(content);
-      console.log(markdown);
       if (tags.value != "" && docTitle != "" && markdown != "") {
         const to = ref(null);
         if (route.name == "AddDoc") {
@@ -177,7 +176,7 @@ export default {
           font-size: 1rem;
           padding: 10px;
           margin: 10px 0px;
-          color: $secondary-color;
+          color: $black;
           font-weight: 700;
         }
       }

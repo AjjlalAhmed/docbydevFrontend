@@ -30,7 +30,10 @@
           <div class="auther-pic">
             <img
               v-if="docData.profileimage"
-              :src="docData.profileimage"
+              :src="
+                'https://drive.google.com/uc?export=view&id=' +
+                  docData.profileimage
+              "
               alt=""
             />
             <img
@@ -52,6 +55,7 @@
       </div>
       <div class="doc-html" v-html="converter.makeHtml(docData.docdata)"></div>
     </section>
+    <Loading class="loading" v-if="!docData" />
     <!-- Section right  -->
     <section class="right"></section>
   </div>
@@ -62,9 +66,11 @@
 import { onBeforeMount, ref } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
 import showdown from "showdown";
+import Loading from "../../components/Loading.vue";
 import higlightJS from "highlight.js";
 export default {
   name: "Doc",
+  components: { Loading },
   setup() {
     // Variables
     const ShowdownService = showdown;
@@ -162,6 +168,9 @@ export default {
         .auther-pic {
           img {
             width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
           }
         }
         .name {
@@ -235,10 +244,13 @@ export default {
     }
     .doc-html ::v-deep a {
       display: inline-block;
-      color: $primary-color;
+      color: $black;
     }
     li {
     }
+  }
+  .loading{
+    margin-top: 200px;
   }
   .right {
   }

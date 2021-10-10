@@ -63,7 +63,7 @@
 <script>
 import { ref } from "@vue/reactivity";
 import { useRoute, useRouter } from "vue-router";
-import storeUserInfo from "../composable/storeUserInfoComposable";
+import storeUserInfo from "../helpers/storeUserInfoComposable";
 export default {
   name: "Signup",
   setup() {
@@ -179,14 +179,14 @@ export default {
       .logo {
         font-size: 1.2rem;
         text-transform: uppercase;
-        color: $secondary-color;
+        color: $black;
         padding: 20px 0px;
         font-weight: 900;
       }
       .title {
         font-size: 1rem;
         text-transform: capitalize;
-        color: $secondary-color;
+        color: $black;
         font-weight: 400;
         white-space: nowrap;
       }
@@ -210,7 +210,7 @@ export default {
           width: 250px;
           min-width: 100px;
           &:focus {
-            border: 1px solid $secondary-color;
+            border: 1px solid $black;
             outline: none;
           }
         }

@@ -6,7 +6,9 @@
       <div class="user-img">
         <img
           v-if="details.profileimage && details.profileimage != 'null'"
-          :src="details.profileimage"
+          :src="
+            'https://drive.google.com/uc?export=view&id=' + details.profileimage
+          "
           alt=""
         />
         <img v-else src="@/assets/images/undraw_male_avatar_323b.svg" alt="" />
@@ -116,7 +118,9 @@ export default {
     gap: 30px;
     .user-img {
       img {
-        max-width: 150px;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
         border-radius: 50%;
       }
     }
@@ -139,7 +143,7 @@ export default {
       .btn {
         margin: 15px 0px;
         a {
-          background: $primary-color;
+          background: $secondary-color;
           padding: 5px 20px;
           border: 0px;
           border-radius: 3px;

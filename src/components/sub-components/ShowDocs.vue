@@ -21,7 +21,7 @@
             class="search-input"
           />
           <!-- Search butoon  -->
-          <button class="search-btn">
+          <button class="search-btn" @click="searchDoc">
             <i class="fa fa-search" aria-hidden="true"></i>
           </button>
         </div>
@@ -50,7 +50,14 @@
           <div class="post-top">
             <!-- Auther profile image  -->
             <div class="auther-pic">
-              <img v-if="doc.profileimage" :src="doc.profileimage" alt="" />
+              <img
+                v-if="doc.profileimage"
+                :src="
+                  'https://drive.google.com/uc?export=view&id=' +
+                    doc.profileimage
+                "
+                alt=""
+              />
               <img
                 v-else
                 src="@/assets/images/undraw_male_avatar_323b.svg"
@@ -124,6 +131,8 @@
           </div>
         </li>
       </ul>
+      <Loading v-if="!docData && !errorMessage" />
+
       <!-- Error message  -->
       <div v-if="errorMessage || docData == 'Empty'" class="error-message">
         <h1>Docs not found</h1>
@@ -139,7 +148,7 @@
           <div class="img">
             <img src="@/assets/images/undraw_male_avatar_323b.svg" alt="" />
           </div>
-          <p class="question">please login first add your reaction</p>
+          <p class="question">please login first to add your reaction</p>
           <div class="btn">
             <router-link to="/login">login</router-link>
             <span @click="cancelModel" class="exits-model">Cancel</span>
@@ -182,6 +191,7 @@
       </div>
     </section>
   </div>
+
   <!-- Wraper  -->
 </template>
 
@@ -189,10 +199,12 @@
 import { ref, watch } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
+import Loading from "../Loading.vue";
 import moment from "moment";
 export default {
   name: "ShowDocs",
   props: ["docs"],
+  components: { Loading },
   setup(props) {
     //   Variables
     const store = useStore();
@@ -362,6 +374,21 @@ export default {
         errorMessage.value = props.docs;
       }
     };
+    const searchDoc = async () => {
+      if (search.value && search.value != "") {
+        docData.value = null;
+        const response = await fetch(`${host}search/${search.value}`);
+        const data = await response.json();
+        if (data.error == "Empty") {
+          docData.value = null;
+          errorMessage.value = props.docs;
+        } else {
+          docData.value = data.docs;
+          errorMessage.value = null;
+          checkIfLiked(data.docs);
+        }
+      }
+    };
     if (
       docData.value != null &&
       docData.value != "null" &&
@@ -406,6 +433,7 @@ export default {
       deleteDoc,
       categoryItemArray,
       changeCategory,
+      searchDoc,
     };
   },
 };
@@ -441,7 +469,7 @@ export default {
           display: inline-block;
           cursor: pointer;
           i {
-            color: $secondary-color;
+            color: $black;
           }
         }
       }
@@ -455,7 +483,7 @@ export default {
           padding: 10px 0px;
           li {
             font-size: 1rem;
-            color: $secondary-color;
+            color: $black;
             text-transform: capitalize;
             cursor: pointer;
           }
@@ -496,7 +524,9 @@ export default {
           .auther-pic {
             img {
               width: 50px;
+              height: 50px;
               border-radius: 50%;
+              object-fit: cover;
             }
           }
           .auther {
@@ -512,7 +542,7 @@ export default {
               padding-bottom: 5px;
               text-decoration: none;
               display: block;
-              color: $secondary-color;
+              color: $black;
             }
             .date {
               font-size: 0.8rem;
@@ -552,7 +582,7 @@ export default {
                   li,
                   a {
                     font-size: 1rem;
-                    color: $secondary-color;
+                    color: $black;
                     text-transform: capitalize;
                     font-weight: 900;
                     letter-spacing: 1px;
@@ -584,7 +614,7 @@ export default {
             h1 {
               font-size: 1.5rem;
               text-transform: capitalize;
-              color: $secondary-color;
+              color: $black;
               padding: 10px 0px;
               line-height: 2rem;
               font-weight: 900;
@@ -699,7 +729,7 @@ export default {
         a,
         span {
           text-decoration: none;
-          background: $primary-color;
+          background: $secondary-color;
           color: #fff;
           font-size: 1rem;
           font-weight: 700;

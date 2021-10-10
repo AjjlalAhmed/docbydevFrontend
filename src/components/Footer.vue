@@ -22,7 +22,7 @@ footer {
     text-transform: capitalize;
     text-align: center;
     font-size: 1.2rem;
-    font-weight: 900;
+    font-weight: 700;
     letter-spacing: 1px;
   }
 }

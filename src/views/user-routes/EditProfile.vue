@@ -123,7 +123,7 @@
 <script>
 import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
-import storeUserInfo from "../../composable/storeUserInfoComposable";
+import storeUserInfo from "../../helpers/storeUserInfoComposable";
 import { useRouter } from 'vue-router';
 export default {
   name: "EditProfile",
@@ -131,7 +131,7 @@ export default {
     // Variables
     const store = useStore();
     const router = useRouter()
-    const img = ref(store.getters.currentimg);
+    const img = ref(store.getters.currentProfileimage);
     const name = ref(store.getters.currentUsername);
     const bioModel = ref(store.getters.currentBio);
     const skillsModel = ref(store.getters.currentSkills);
@@ -166,16 +166,17 @@ export default {
           },
           body: JSON.stringify({
             token: store.getters.currentToken,
-            name: name.value,
-            bio: bioModel.value,
+            oldImgId:store.getters.currentProfileimage.replaceAll("'","`"),
+            name: name.value.replaceAll("'","`"),
+            bio: bioModel.value.replaceAll("'","`"),
             img: img.value,
-            skills: skillsModel.value,
-            address: addressModel.value,
-            birthday: birthdayModel.value,
-            gender: genderModel.value,
-            phone: phoneModel.value,
-            profession: professionModel.value,
-            site: siteModel.value,
+            skills: skillsModel.value.replaceAll("'","`"),
+            address: addressModel.value.replaceAll("'","`"),
+            birthday: birthdayModel.value.replaceAll("'","`"),
+            gender: genderModel.value.replaceAll("'","`"),
+            phone: phoneModel.value.replaceAll("'","`"),
+            profession: professionModel.value.replaceAll("'","`"),
+            site: siteModel.value.replaceAll("'","`"),
           }),
         }
       );
