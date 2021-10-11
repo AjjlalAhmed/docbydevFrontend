@@ -13,10 +13,17 @@
 <script>
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
+import { useRoute } from 'vue-router';
+import { watch } from '@vue/runtime-core';
 export default {
   name: "App",
   components: { Navbar, Footer },
-  setup() {},
+  setup() {
+    const route = useRoute()
+    watch(() => route.name,() =>{
+      document.title = route.name
+    })
+  },
 };
 </script>
 <style lang="scss">
