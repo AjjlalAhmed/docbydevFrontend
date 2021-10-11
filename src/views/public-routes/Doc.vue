@@ -187,10 +187,9 @@ export default {
     }
     .doc-html ::v-deep p {
       padding: 5px 0px;
-      font-size: 1.1rem;
-      line-height: 1.8rem;
+      font-size: 1.3rem;
+      line-height: 1.9rem;
       letter-spacing: 1px;
-
       word-wrap: break-word;
       white-space: normal;
     }
@@ -245,11 +244,13 @@ export default {
     .doc-html ::v-deep a {
       display: inline-block;
       color: $black;
+      font-size: 1.3rem;
+      line-height: 1.9rem;
     }
     li {
     }
   }
-  .loading{
+  .loading {
     margin-top: 200px;
   }
   .right {

@@ -32,7 +32,11 @@
             <li @click="changeCategory('feed')" :ref="categoryItemArray">
               feed
             </li>
-            <li @click="changeCategory('latest')" :ref="categoryItemArray">
+            <li
+              class="active-category"
+              @click="changeCategory('latest')"
+              :ref="categoryItemArray"
+            >
               latest
             </li>
             <li @click="changeCategory('top')" :ref="categoryItemArray">top</li>
@@ -134,7 +138,10 @@
       <Loading v-if="!docData && !errorMessage" />
 
       <!-- Error message  -->
-      <div v-if="errorMessage || docData == 'Empty'" class="error-message">
+      <div
+        v-if="errorMessage || (docData == 'Empty' && !docData)"
+        class="error-message"
+      >
         <h1>Docs not found</h1>
         <div class="not-found__img">
           <img src="@/assets/images/undraw_No_data_re_kwbl.svg" alt="" />
@@ -353,7 +360,16 @@ export default {
       });
       const data = await response.json();
       if (data.error == null) {
-        router.go();
+        const response = await fetch(`${host}getdoc?category=latest`);
+        const data = await response.json();
+        if (data.error == "Empty") {
+          docData.value = null;
+          errorMessage.value = props.docs;
+        } else {
+          docData.value = data.docs;
+          errorMessage.value = null;
+          checkIfLiked(data.docs);
+        }
       }
     };
     // This function show and hide delete doc model
@@ -363,6 +379,17 @@ export default {
       docid.value = id;
     };
     const changeCategory = async (category) => {
+      categoryItem.value.forEach((item) => {
+        item.className = "";
+      });
+      if (category == "latest") {
+        categoryItem.value[1].classList.add("active-category");
+      } else if (category == "top") {
+        categoryItem.value[2].classList.add("active-category");
+      } else if (category == "feed") {
+        categoryItem.value[0].classList.add("active-category");
+      }
+      docData.value = null;
       const response = await fetch(`${host}getdoc?category=${category}`);
       const data = await response.json();
       if (data.error == null) {
@@ -758,6 +785,13 @@ export default {
 }
 .on-home {
   align-items: center;
+}
+.active-category {
+  background: $secondary-color;
+  padding: 5px;
+  border-radius: 3px;
+  color: #fff !important;
+  // border-bottom: 2px solid $secondary-color;
 }
 @media only screen and(max-width:360px) {
   .showdoc {
