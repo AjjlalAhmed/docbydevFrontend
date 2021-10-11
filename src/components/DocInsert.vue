@@ -197,7 +197,7 @@ export default {
         text-transform: capitalize;
         font-size: 1.5rem;
         color: #fff;
-        background: $primary-color;
+        background: $secondary-color;
         border-radius: 3px;
         padding: 1px 30px;
         margin: 10px;
