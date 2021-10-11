@@ -166,7 +166,7 @@ export default {
           },
           body: JSON.stringify({
             token: store.getters.currentToken,
-            oldImgId:store.getters.currentProfileimage.replaceAll("'","`"),
+            oldImgId:store.getters.currentProfileimage,
             name: name.value.replaceAll("'","`"),
             bio: bioModel.value.replaceAll("'","`"),
             img: img.value,
