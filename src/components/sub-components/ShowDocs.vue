@@ -378,6 +378,7 @@ export default {
       deleteModel.value = !deleteModel.value;
       docid.value = id;
     };
+    // This function change category 
     const changeCategory = async (category) => {
       categoryItem.value.forEach((item) => {
         item.className = "";
@@ -401,6 +402,7 @@ export default {
         errorMessage.value = props.docs;
       }
     };
+    // This function search docs og given value 
     const searchDoc = async () => {
       if (search.value && search.value != "") {
         docData.value = null;
