@@ -64,6 +64,7 @@ export default {
   display: flex;
   justify-content: center;
   padding: 50px 0px;
+  margin-top: 50px;
   position: relative;
   width: 100%;
 }
