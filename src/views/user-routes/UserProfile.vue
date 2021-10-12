@@ -1,5 +1,10 @@
 <template>
-  <Profile :docs="docs" :user="user" />
+  <div class="user-profiles">
+    <!-- SideMenu  -->
+    <SideMenu />
+    <!-- Profile  -->
+    <Profile :docs="docs" :user="user" />
+  </div>
 </template>
 
 <script>
@@ -7,9 +12,10 @@ import { ref } from "@vue/reactivity";
 import { onBeforeMount, watch } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import Profile from "../../components/Profile.vue";
+import SideMenu from "../../components/SideMenu.vue";
 export default {
   name: "UserProfile",
-  components: { Profile },
+  components: { Profile, SideMenu },
   setup() {
     // Variables
     const docs = ref(null);
@@ -73,4 +79,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.user-profiles {
+  display: flex;
+  justify-content: center;
+  padding: 50px 0px;
+  position: relative;
+  width: 100%;
+  margin-top:50px ;
+}
 </style>

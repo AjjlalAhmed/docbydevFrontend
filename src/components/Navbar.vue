@@ -8,13 +8,13 @@
       <!-- Main ul -->
       <ul class="nav-ul">
         <!-- nav item -->
-        <li v-if="user" class="nav-item" @click="changeBorder">
+        <li v-if="user" class="nav-item ">
           <router-link class="nav-link action-btn" to="/user/adddoc">
             add doc
           </router-link>
         </li>
         <!-- nav item -->
-        <li v-if="user" class="nav-item select" @click="changeBorder">
+        <li v-if="user" class="nav-item nav-user__item select">
           <img
             v-if="img && img != 'null'"
             :src="'https://drive.google.com/uc?export=view&id=' + img"
@@ -48,17 +48,23 @@
             </li>
           </ul>
         </li>
+        <li class=" nav-item menu-btn">
+          <i @click="showRightMenu" class="fa fa-bars" aria-hidden="true"></i>
+        </li>
         <!-- nav item -->
-        <li v-if="!user" class="nav-item" @click="changeBorder">
+        <li v-if="!user" class="nav-item">
           <router-link class="nav-link" to="/login">log in</router-link>
         </li>
         <!-- nav item -->
-        <li v-if="!user" class="nav-item" @click="changeBorder">
+        <li v-if="!user" class="nav-item">
           <router-link class="nav-link action-btn" to="/signup">
             create account
           </router-link>
         </li>
       </ul>
+      <!-- <div class="menu-btn">
+        <i @click="showRightMenu" class="fa fa-bars" aria-hidden="true"></i>
+      </div> -->
     </nav>
   </header>
   <!-- Header  -->
@@ -78,6 +84,10 @@ export default {
     const user = ref(store.getters.currentToken);
     const img = ref(store.getters.currentProfileimage);
     const username = ref(store.getters.currentUsername);
+    // Function
+    const showRightMenu = async () => {
+      store.commit("addSideMenu", true);
+    };
     // Watchers
     watch(routes, () => {
       user.value = store.getters.currentToken;
@@ -99,6 +109,7 @@ export default {
       user,
       img,
       username,
+      showRightMenu,
     };
   },
 };
@@ -106,15 +117,20 @@ export default {
 
 <style lang="scss" scope>
 header {
-  background: $secondary-color;
+  position: relative;
+  width: 100%;
+  z-index: 5;
   .nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
+    background: $secondary-color;
     border-bottom: 1px solid #2222;
+    position: fixed;
+    width: 100%;
     .logo {
-      padding: 5px;
+      padding: 10px 5px;
       a {
         text-decoration: none;
         color: $primary-color;
@@ -156,6 +172,9 @@ header {
           text-transform: uppercase;
           font-size: 1rem;
         }
+      }
+      .menu-btn {
+        display: none;
       }
       .select {
         position: relative;
@@ -210,6 +229,34 @@ header {
               font-size: 1rem;
             }
           }
+        }
+      }
+    }
+  }
+}
+@media only screen and(max-width:750px) {
+  header {
+    .nav {
+      .logo {
+        a {
+          font-size: 1.2rem;
+        }
+      }
+      .nav-ul {
+        .nav-item {
+          display: none;
+        }
+        .nav-user__item {
+          display: block;
+        }
+        .menu-btn {
+          display: block;
+        }
+      }
+      .menu-btn {
+        display: block;
+        i {
+          color: $primary-color;
         }
       }
     }

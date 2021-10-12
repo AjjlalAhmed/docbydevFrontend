@@ -185,69 +185,46 @@ export default {
         }
       }
     }
-    .doc-html ::v-deep p {
+    .doc-html :deep(p) {
       padding: 5px 0px;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       line-height: 1.9rem;
       letter-spacing: 1px;
       word-wrap: break-word;
       white-space: normal;
     }
-    .doc-html ::v-deep pre {
+    .doc-html :deep(pre) {
+      padding: 10px;
+      overflow: auto;
+    }
+    .doc-html :deep(code) {
       padding: 10px;
       overflow: scroll;
-      font-family: "Courier Prime", monospace;
     }
-    .doc-html ::v-deep code {
-      padding: 10px;
-      overflow: scroll;
+    @for $i from 1 through 3 {
+      .doc-html :deep(h#{$i}) {
+        padding: 10px 0px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 900;
+      }
     }
-    .doc-html ::v-deep h1 {
-      padding: 10px 0px;
-      font-size: 2rem;
-      font-weight: 900;
-    }
-    .doc-html ::v-deep h2 {
-      padding: 10px 0px;
-      font-size: 2rem;
-      font-weight: 900;
-    }
-    .doc-html ::v-deep h3 {
-      padding: 10px 0px;
-      font-size: 2rem;
-      font-weight: 900;
-    }
-    .doc-html ::v-deep h4 {
-      padding: 10px 0px;
-      font-size: 2rem;
-      font-weight: 900;
-    }
-    .doc-html ::v-deep h5 {
-      padding: 10px 0px;
-      font-size: 2rem;
-      font-weight: 900;
-    }
-    .doc-html ::v-deep h6 {
-      padding: 10px 0px;
-      font-size: 2rem;
-      font-weight: 900;
-    }
-    .doc-html ::v-deep img {
+    .doc-html :deep(img) {
       width: 100%;
     }
-    .doc-html ::v-deep iframe {
+    .doc-html :deep(iframe) {
       width: 100%;
     }
-    .doc-html ::v-deep strong {
+    .doc-html :deep(strong) {
       display: inline-block;
     }
-    .doc-html ::v-deep a {
+    .doc-html :deep(a) {
       display: inline-block;
-      color: $black;
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       line-height: 1.9rem;
     }
-    li {
+    .doc-html :deep(li){
+      padding: 5px 0px;
+      font-size: 1.1rem;
     }
   }
   .loading {

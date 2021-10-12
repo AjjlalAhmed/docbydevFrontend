@@ -468,7 +468,10 @@ export default {
 
 <style lang="scss" scoped>
 .showdoc {
+  // margin-top: 100px;
+  padding:0px 10px;
   .docs {
+    width: 100%;
     .doc-top {
       display: flex;
       flex-direction: column;
@@ -565,7 +568,7 @@ export default {
             .name {
               font-size: 1rem;
               text-transform: capitalize;
-              font-weight: 700;
+              font-family: "Montserrat", sans-serif;
               padding-bottom: 5px;
               text-decoration: none;
               display: block;

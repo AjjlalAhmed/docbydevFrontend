@@ -1,6 +1,9 @@
 import { createStore } from "vuex";
 export default createStore({
     state: {
+        // Site related
+        showRightSide: false,
+        // User related
         token: sessionStorage.getItem("accessToken"),
         username: sessionStorage.getItem("username"),
         useremail: sessionStorage.getItem("useremail"),
@@ -17,6 +20,12 @@ export default createStore({
         site: sessionStorage.getItem("site"),
     },
     mutations: {
+        // Site related
+        addSideMenu(state, payload) {
+            if (state.showRightSide != true) state.showRightSide = payload;
+            else state.showRightSide = false;
+        },
+        // User related
         addToken(state, payload) {
             state.token = payload;
         },
@@ -61,6 +70,11 @@ export default createStore({
         },
     },
     getters: {
+        // Site related
+        currentMenuValue: (state) => {
+            return state.showRightSide;
+        },
+        // User related
         currentToken: (state) => {
             return state.token;
         },

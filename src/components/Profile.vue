@@ -93,7 +93,6 @@ export default {
 
 <style lang="scss" scoped>
 .wraper {
-  margin: 0px;
   padding: 50px;
   .back {
     max-width: 1000px;

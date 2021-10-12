@@ -35,6 +35,7 @@ export default {
   //  Fontawesome cdn
   @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
   // Google font cdn
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap');
   font-family: "Open-Dyslexic Roman";
 }
 @font-face {

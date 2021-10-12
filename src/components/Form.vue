@@ -168,7 +168,7 @@ export default {
 .form-wraper {
   display: flex;
   max-width: 800px;
-  margin: 80px auto;
+  margin: 100px auto;
   align-items: center;
   border: 1px solid #2222;
   padding: 30px 30px;
@@ -254,9 +254,10 @@ export default {
 @media only screen and(max-width:650px) {
   .form-wraper {
     display: block;
-    padding: 20px;
+    padding:100px 20px;
     margin: 20px;
     margin-top: 10vh;
+    border: 0px;
     .sec-1 {
       .head {
         text-align: center;
