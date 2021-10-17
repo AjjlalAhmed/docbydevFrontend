@@ -1,4 +1,5 @@
 <template>
+  <!-- Loading  -->
   <div class="loading">
     <div class="sk-chase">
       <div class="sk-chase-dot"></div>
@@ -9,6 +10,7 @@
       <div class="sk-chase-dot"></div>
     </div>
   </div>
+  <!-- Loading  -->
 </template>
 
 <script>
@@ -18,10 +20,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.loading{
-    width: 100%;
-    display: flex;
-    justify-content: center;
+.loading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .sk-chase {
   width: 40px;
@@ -45,7 +47,7 @@ export default {
   width: 25%;
   height: 25%;
   border: 0px;
-  background-color: $secondary-color;
+  background-color: $contrast-color;
   border-radius: 100%;
   animation: sk-chase-dot-before 2s infinite ease-in-out both;
 }

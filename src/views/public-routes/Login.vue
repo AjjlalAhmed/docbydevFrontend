@@ -1,8 +1,11 @@
 <template>
+  <!-- Form  -->
   <Form />
+  <!-- Form  -->
 </template>
 
 <script>
+// Importing thing we need
 import Form from "../../components/Form.vue";
 export default {
   name: "Login",
@@ -13,4 +16,4 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>

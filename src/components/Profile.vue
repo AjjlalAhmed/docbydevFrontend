@@ -1,6 +1,6 @@
 <template>
-  <!-- Wraper  -->
-  <div class="wraper">
+  <!-- Profile content  -->
+  <div class="profile-content">
     <!-- Go back btn  -->
     <div class="back">
       <router-link class="back-btn" to="/">
@@ -45,10 +45,11 @@
       <ShowDocs v-if="docs" :docs="docs" />
     </div>
   </div>
-  <!-- Wraper  -->
+  <!-- Profile content  -->
 </template>
 
 <script>
+// Importing thing we need 
 import { ref } from "@vue/reactivity";
 import ShowDocs from "./sub-components/ShowDocs.vue";
 import UserDetails from "./sub-components/UserDetails.vue";
@@ -63,12 +64,14 @@ export default {
     const route = useRoute();
     const docs = ref(null);
     const user = ref(props.user);
-    // Checking if docs 
+
+    // Checking if docs
     if (props.docs == "Empty") {
       docs.value = props.docs;
     } else {
       docs.value = props.docs;
     }
+    
     // Watchers
     watch(
       () => props.docs,
@@ -92,8 +95,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wraper {
-  padding: 50px;
+// profile content 
+.profile-content {
+  margin: 20px 10px;
+  // back 
   .back {
     max-width: 1000px;
     margin: auto;
@@ -104,6 +109,7 @@ export default {
       text-decoration: none;
     }
   }
+  // more details 
   .more-details {
     max-width: 1000px;
     column-width: 1000px;
@@ -173,6 +179,7 @@ export default {
       }
     }
   }
+  // doc 
   .docs {
     max-width: 1000px;
     margin: auto;
@@ -184,9 +191,10 @@ export default {
     }
   }
 }
+
 // Media query
 @media only screen and(max-width:500px) {
-  .wraper {
+  .profile-content {
     padding: 10px;
   }
 }

@@ -4,6 +4,8 @@ import Signup from "../views/public-routes/Signup.vue";
 import Login from "../views/public-routes/Login.vue";
 import Profile from "../views/public-routes/UserPublicProfile.vue";
 import Doc from "../views/public-routes/Doc.vue";
+import Jobs from "../views/public-routes/Jobs.vue";
+import News from "../views/public-routes/News.vue";
 import UserProfile from "../views/user-routes/UserProfile.vue";
 import EditProfile from "../views/user-routes/EditProfile.vue";
 import EditDoc from "../views/user-routes/EditDoc.vue";
@@ -49,6 +51,16 @@ const routes = [
         path: "/doc",
         name: "Doc",
         component: Doc,
+    },
+    {
+        path: "/jobs",
+        name: "Jobs",
+        component: Jobs,
+    },
+    {
+        path: "/news",
+        name: "News",
+        component: News,
     },
     // User routes
     {

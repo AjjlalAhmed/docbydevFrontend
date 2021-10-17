@@ -11,72 +11,134 @@
     <!-- Side ul   -->
     <ul>
       <!-- Side li  -->
-      <li>
-        <router-link to="/">
-          <i class="fa fa-home" aria-hidden="true"></i> home
-        </router-link>
-      </li>
-      <li>
-        <router-link to="#">
-          <i class="fa fa-briefcase" aria-hidden="true"></i> jobs
-        </router-link>
-      </li>
-      <li>
-        <router-link to="#">
-          <i class="fa fa-newspaper-o" aria-hidden="true"></i> news
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/login">
-          <i class="fa fa-sign-in" aria-hidden="true"></i> login
-        </router-link>
-      </li>
-      <li>
-        <router-link to="/signup">
-          <i class="fa fa-plus" aria-hidden="true"></i> create account
+      <li v-for="(item, index) in items" :key="index">
+        <router-link
+          :class="{ active: route.path == item.path }"
+          :to="item.path"
+          v-html="`${item.text}`"
+        >
         </router-link>
       </li>
     </ul>
   </div>
+  <!-- Side menu  -->
 </template>
 
 <script>
+// Importing thing we need
 import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import { watch } from "@vue/runtime-core";
+import { useRoute } from "vue-router";
 export default {
   name: "SideMenu",
   setup() {
     // Variables
     const store = useStore();
+    const route = useRoute();
     const showRightSide = ref(store.getters.currentMenuValue);
-    // Function
+    const items = ref([]);
+
+    // Functions
+    // This function creating list items
+    const createItems = () => {
+      items.value = [];
+      if (store.getters.currentUsername) {
+        items.value.push(
+          {
+            path: "/",
+            text: `<span><i class="fa fa-home" aria-hidden="true"></i> home</span>`,
+          },
+          {
+            path: "/jobs",
+            text: `<span><i class="fa fa-briefcase" aria-hidden="true"></i> jobs</span>`,
+          },
+          {
+            path: "/news",
+            text: `<span><i class="fa fa-newspaper-o" aria-hidden="true"></i> news</span>`,
+          },
+          {
+            path: "/user/userprofile",
+            text: `<span><i class="fa fa-user" aria-hidden="true"></i> profile</span>`,
+          },
+          {
+            path: "/user/logout",
+            text: `<span><i class="fa fa-sign-out" aria-hidden="true"></i> logout</span>`,
+          }
+        );
+      } else {
+        items.value.push(
+          {
+            path: "/",
+            text: `<span><i class="fa fa-home" aria-hidden="true"></i> home</span>`,
+          },
+          {
+            path: "/jobs",
+            text: `<span><i class="fa fa-briefcase" aria-hidden="true"></i> jobs</span>`,
+          },
+          {
+            path: "/news",
+            text: `<span><i class="fa fa-newspaper-o" aria-hidden="true"></i> news</span>`,
+          },
+          {
+            path: "/login",
+            text: `<span><i class="fa fa-sign-in" aria-hidden="true"></i> login</span>`,
+          },
+          {
+            path: "/signup",
+            text: `<span><i class="fa fa-plus" aria-hidden="true"></i> create account</span>`,
+          }
+        );
+      }
+    };
+    // This function toggle side menu
     const showRightMenu = async () => {
       store.commit("addSideMenu", true);
     };
-    // Watcher
+    // Calling createItems 
+    createItems();
+
+    // Watchers
     watch(
       () => store.getters.currentMenuValue,
       () => {
         showRightSide.value = store.getters.currentMenuValue;
       }
     );
+    watch(
+      () => store.getters.currentUsername,
+      () => {
+        createItems();
+      }
+    );
+    watch(
+      () => route.name,
+      () => {
+        createItems();
+      }
+    );
     return {
       showRightMenu,
       showRightSide,
+      items,
+      route,
+      store,
     };
   },
 };
 </script>
 
 <style lang="scss" scoped>
+// side bar right
 .side-bar__right {
   position: relative;
   min-width: 200px;
   margin-top: 50px;
+  // close menu 
   .close-menu {
     display: none;
   }
+  // ul 
   ul {
     position: fixed;
     list-style: none;
@@ -84,7 +146,7 @@ export default {
       display: block;
       margin-bottom: 30px;
       a {
-        color: $secondary-color;
+        color: $black;
         font-size: 1rem;
         text-transform: capitalize;
         padding: 10px;
@@ -96,6 +158,11 @@ export default {
     }
   }
 }
+// active 
+.active :deep(span) {
+  color: $contrast-color;
+}
+// Media queries 
 @media only screen and(max-width:750px) {
   .side-bar__right {
     display: none;
@@ -103,7 +170,7 @@ export default {
   .show-right__side {
     display: block;
     position: fixed;
-    background: $primary-color;
+    background: $secondary-color;
     border: 1px solid #2222;
     left: 0;
     top: -50px;
@@ -121,19 +188,30 @@ export default {
       h1 {
         font-size: 1.3rem;
         text-transform: uppercase;
-        color: $secondary-color;
+        color: $primary-color;
       }
       .close-btn {
         i {
           font-size: 1.5rem;
-          color: $secondary-color;
+          color: $primary-color;
         }
       }
     }
     ul {
       padding: 30px 10px;
       li {
-        margin-bottom: 30px;
+        margin-bottom: 10px;
+        a {
+          color: $primary-color;
+          font-size: 1rem;
+          text-transform: capitalize;
+          padding: 10px;
+          display: block;
+          text-decoration: none;
+          i {
+            padding: 0px 5px;
+          }
+        }
       }
     }
   }

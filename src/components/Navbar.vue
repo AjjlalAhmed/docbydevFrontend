@@ -84,11 +84,14 @@ export default {
     const user = ref(store.getters.currentToken);
     const img = ref(store.getters.currentProfileimage);
     const username = ref(store.getters.currentUsername);
+    
     // Function
+    // This function toggle side menu 
     const showRightMenu = async () => {
       store.commit("addSideMenu", true);
     };
     // Watchers
+
     watch(routes, () => {
       user.value = store.getters.currentToken;
     });
@@ -104,6 +107,7 @@ export default {
         username.value = store.getters.currentUsername;
       }
     );
+    
     return {
       active,
       user,
@@ -116,10 +120,12 @@ export default {
 </script>
 
 <style lang="scss" scope>
+// heaer 
 header {
   position: relative;
   width: 100%;
   z-index: 5;
+  // nav 
   .nav {
     display: flex;
     justify-content: space-around;
@@ -130,15 +136,16 @@ header {
     position: fixed;
     width: 100%;
     .logo {
-      padding: 10px 5px;
+      padding: 5px;
       a {
         text-decoration: none;
-        color: $primary-color;
-        font-size: 1.5rem;
+        color: $black;
+        font-size: 1.3rem;
         text-transform: uppercase;
-        font-weight: 900;
-        padding: 15px 10px;
+        font-weight: 700;
+        padding: 5px;
         letter-spacing: 1px;
+        display: block;
       }
     }
     .nav-ul {
@@ -147,29 +154,29 @@ header {
       align-items: center;
       .nav-item {
         display: inline-block;
-        padding: 20px 10px;
+        padding: 10px;
         margin: 0px 5px;
         .nav-link {
           text-transform: capitalize;
           font-size: 1rem;
-          color: #fff;
+          color: $black;
           text-decoration: none;
           cursor: pointer;
           padding: 5px 10px;
           &:hover {
             background: $primary-color;
-            color: $black;
             border-radius: 3px;
+            color: #fff;
           }
         }
         .action-btn {
           background: $primary-color;
           padding: 5px 20px;
-          color: $black;
+          color: #fff;
           border: 0px;
           border-radius: 3px;
-          font-weight: 900;
-          text-transform: uppercase;
+          font-weight: 700;
+          text-transform: capitalize;
           font-size: 1rem;
         }
       }
@@ -178,11 +185,11 @@ header {
       }
       .select {
         position: relative;
-        padding: 5px;
+        padding: 0px;
         cursor: pointer;
         img {
-          width: 40px;
-          height: 40px;
+          width: 30px;
+          height: 30px;
           object-fit: cover;
           border-radius: 50%;
         }
@@ -192,7 +199,8 @@ header {
         .inner-ul {
           display: none;
           position: absolute;
-          right: 30px;
+          right: 0px;
+          top: 30px;
           li {
             display: flex;
             flex-direction: column;
@@ -206,7 +214,7 @@ header {
               padding: 10px 20px;
               font-weight: 700;
               i {
-                // color: $primary-color;
+                color: $contrast-color;
                 padding: 0px 5px;
               }
               &:hover {
@@ -234,6 +242,7 @@ header {
     }
   }
 }
+// Media query 
 @media only screen and(max-width:750px) {
   header {
     .nav {

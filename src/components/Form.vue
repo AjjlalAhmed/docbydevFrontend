@@ -7,31 +7,39 @@
       <form class="form">
         <!-- head  -->
         <div class="head">
-          <h1 class="logo">{ docbydev }</h1>
-          <h1 v-if="routeName == 'Signup'" class="title">
-            create your account
-          </h1>
-          <h1 v-else class="title">login to your account</h1>
+          <h1 v-if="routeName == 'Login'" class="logo">login</h1>
+          <h1 v-if="routeName == 'Signup'" class="logo">create account</h1>
         </div>
         <!-- form-control  -->
         <div v-if="routeName == 'Signup'" class="form-control">
-          <label>name</label>
-          <input v-model="name" autocomplete="username" type="text" />
+          <label> <i class="fa fa-user" aria-hidden="true"></i> </label>
+          <input
+            v-model="name"
+            placeholder="Name"
+            autocomplete="username"
+            type="text"
+          />
           <span class="error"> {{ nameError }}</span>
         </div>
         <!-- form-control  -->
         <div class="form-control">
-          <label>email</label>
-          <input v-model="email" autocomplete="email" type="email" />
+          <label> <i class="fa fa-envelope" aria-hidden="true"></i> </label>
+          <input
+            v-model="email"
+            placeholder="Email"
+            autocomplete="email"
+            type="email"
+          />
           <span class="error">{{ emailError }}</span>
         </div>
         <!-- form-control  -->
         <div class="form-control">
-          <label>password</label>
+          <label> <i class="fa fa-unlock-alt" aria-hidden="true"></i> </label>
           <input
             v-model="password"
             autocomplete="current-password"
             type="password"
+            placeholder="Password"
           />
           <span class="error">{{ passwordError }}</span>
         </div>
@@ -49,18 +57,12 @@
         </div>
       </form>
     </section>
-    <!-- se-2  -->
-    <section class="sec-2">
-      <!-- img  -->
-      <div class="img">
-        <img src="@/assets/images/undraw_Mobile_login_re_9ntv.svg" alt="" />
-      </div>
-    </section>
   </div>
   <!-- Form-warper  -->
 </template>
 
 <script>
+// Importing thing we need 
 import { ref } from "@vue/reactivity";
 import { useRoute, useRouter } from "vue-router";
 import storeUserInfo from "../helpers/storeUserInfoComposable";
@@ -78,6 +80,7 @@ export default {
     const emailError = ref("");
     const passwordError = ref("");
     const emailValidator = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     // Functions
     // This function submit form to server
     const submit = async (payload, to) => {
@@ -165,30 +168,35 @@ export default {
 </script>
 
 <style lang="scss" scope>
+// form wraper 
 .form-wraper {
-  display: flex;
-  max-width: 800px;
-  margin: 100px auto;
-  align-items: center;
-  border: 1px solid #2222;
-  padding: 30px 30px;
+  display: block;
+  max-width: 1000px;
+  column-width: 1000px;
+  margin-top: 50px;
   gap: 10px;
   border-radius: 3px;
+  // sec 1 
   .sec-1 {
+    background: #fff;
+    padding: 30px;
+    border: 1px solid #3333;
     .head {
       .logo {
-        font-size: 1.2rem;
-        text-transform: uppercase;
+        font-size: 2rem;
+        text-transform: capitalize;
+        text-align: left;
         color: $black;
-        padding: 20px 0px;
-        font-weight: 900;
+        padding: 0px;
+        font-weight: 700;
       }
       .title {
-        font-size: 1rem;
-        text-transform: capitalize;
+        font-size: 1.2rem;
+        // text-transform: capitalize;
         color: $black;
-        font-weight: 400;
+        font-weight: 700;
         white-space: nowrap;
+        padding: 20px 0px;
       }
     }
     .form {
@@ -196,24 +204,39 @@ export default {
       flex-direction: column;
       gap: 20px;
       .form-control {
+        width: 100%;
+        background: #fff;
+        margin: 10px 0px;
+        // display: flex;
+        // align-items: center;
+        border-bottom: 1px solid #5555;
         label {
-          text-transform: capitalize;
-          font-size: 0.8rem;
-          display: block;
-          padding: 5px 0px;
+          color: $contrast-color;
+          display: inline-block;
         }
         input {
-          border: 1px solid #5555;
+          border: 0px;
           border-radius: 3px;
-          text-indent: 5px;
-          padding: 5px 0px;
-          width: 250px;
-          min-width: 100px;
+          text-indent: 15px;
+          padding: 10px 0px;
+          width: 90%;
+          font-size: 1rem;
+          background: #fff;
+          font-family: FontAwesome, Poppins;
+          display: inline-block;
           &:focus {
-            border: 1px solid $black;
+            border: 0px;
+            background: transparent;
             outline: none;
           }
         }
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+          -webkit-box-shadow: 0 0 0 30px white inset !important;
+        }
+
         .error {
           font-size: 0.8rem;
           color: crimson;
@@ -229,58 +252,19 @@ export default {
           text-transform: capitalize;
           border: 0px;
           border-radius: 3px;
-          padding: 5px 10px;
+          padding: 10px;
           cursor: pointer;
           font-weight: 700;
         }
       }
     }
   }
-  .sec-2 {
-    .img {
-      img {
-        width: 100%;
-      }
-    }
-  }
 }
-// Media queries
+// Media query
 @media only screen and(max-width:830px) {
   .form-wraper {
     margin: 20px;
-    margin-top: 10vh;
-  }
-}
-@media only screen and(max-width:650px) {
-  .form-wraper {
-    display: block;
-    padding:100px 20px;
-    margin: 20px;
-    margin-top: 10vh;
-    border: 0px;
-    .sec-1 {
-      .head {
-        text-align: center;
-      }
-      .form {
-        display: block;
-        .form-control {
-          padding: 20px 0px;
-          max-width: 450px;
-          margin: auto;
-          label {
-            display: block;
-          }
-          input {
-            width: 100%;
-            padding: 5px 0px;
-          }
-        }
-      }
-    }
-    .sec-2 {
-      display: none;
-    }
+    margin-top: 0px;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <!-- Wraper  -->
+  <!-- showdoc  -->
   <div :class="{ showdoc: true, 'bg-active': route.name == 'Home' }">
     <!-- Docs  -->
     <section class="docs">
@@ -115,7 +115,7 @@
                 .split(',')"
               :key="index"
             >
-              #{{ tag }}
+              {{ tag }}
             </span>
           </div>
           <!-- Post bottom  -->
@@ -135,7 +135,7 @@
           </div>
         </li>
       </ul>
-      <Loading v-if="!docData && !errorMessage" />
+      <SkeletonLoading v-if="!docData && !errorMessage" />
 
       <!-- Error message  -->
       <div
@@ -199,19 +199,21 @@
     </section>
   </div>
 
-  <!-- Wraper  -->
+  <!-- showdoc  -->
 </template>
 
 <script>
+// Importing thing we need 
 import { ref, watch } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
 import Loading from "../Loading.vue";
+import SkeletonLoading from "../SkeletonLoading.vue"
 import moment from "moment";
 export default {
   name: "ShowDocs",
   props: ["docs"],
-  components: { Loading },
+  components: { Loading ,SkeletonLoading},
   setup(props) {
     //   Variables
     const store = useStore();
@@ -230,6 +232,7 @@ export default {
     const errorMessage = ref(null);
     const Moment = moment;
     Moment.suppressDeprecationWarnings = true;
+    
     //   Function
     // This function add like to doc
     const like = async (e) => {
@@ -378,7 +381,7 @@ export default {
       deleteModel.value = !deleteModel.value;
       docid.value = id;
     };
-    // This function change category 
+    // This function change category
     const changeCategory = async (category) => {
       categoryItem.value.forEach((item) => {
         item.className = "";
@@ -402,7 +405,7 @@ export default {
         errorMessage.value = props.docs;
       }
     };
-    // This function search docs og given value 
+    // This function search docs og given value
     const searchDoc = async () => {
       if (search.value && search.value != "") {
         docData.value = null;
@@ -418,6 +421,7 @@ export default {
         }
       }
     };
+    
     if (
       docData.value != null &&
       docData.value != "null" &&
@@ -425,10 +429,12 @@ export default {
     ) {
       checkIfLiked(docData.value);
     }
-    // Checkinh if docs
+   
+   // Checkinh if docs
     if (props.docs == "Empty") {
       errorMessage.value = props.docs;
     }
+
     // Watcher
     watch(
       () => props.docs,
@@ -469,16 +475,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// showdoc 
 .showdoc {
   // margin-top: 100px;
-  padding:0px 10px;
+  padding: 0px 10px;
   .docs {
     width: 100%;
     .doc-top {
       display: flex;
       flex-direction: column;
       max-width: 1000px;
-      margin: 50px auto;
+      margin: 0px auto;
+      margin-top: 50px;
       .search {
         display: inline-block;
         border: 1px solid #2222;
@@ -548,15 +556,16 @@ export default {
         max-width: 1000px;
         column-width: 1000px;
         background: #fff;
-        padding: 10px;
+        padding: 20px;
         border: 1px solid #2222;
         .post-top {
           display: flex;
           gap: 10px;
+          padding-bottom: 5px;
           .auther-pic {
             img {
-              width: 50px;
-              height: 50px;
+              width: 30px;
+              height: 30px;
               border-radius: 50%;
               object-fit: cover;
             }
@@ -647,8 +656,7 @@ export default {
               font-size: 1.5rem;
               text-transform: capitalize;
               color: $black;
-              padding: 10px 0px;
-              line-height: 2rem;
+              padding: 0px;
               font-weight: 900;
             }
           }
@@ -662,30 +670,32 @@ export default {
             @mixin random-bgr() {
               background: rgb(random(100), random(100), random(100));
             }
-            color: #fff;
+            color: $black;
             padding: 5px 10px;
             border-radius: 3px;
             text-transform: capitalize;
-            font-size: 0.8rem;
-            font-weight: 700;
-            $num-colors: 100;
-            $base-color: #996b4d;
-            $spectrum: 360deg;
-            $offset: 50deg;
-            @for $i from 0 to $num-colors {
-              &:nth-child(#{$i}) {
-                @include random-bgr();
-              }
-            }
+            font-size: 0.9rem;
+            border: 1px solid #3333;
+            font-family: "Inconsolata", monospace;
+            font-weight: 400;
+            // $num-colors: 100;
+            // $base-color: #996b4d;
+            // $spectrum: 360deg;
+            // $offset: 50deg;
+            // @for $i from 0 to $num-colors {
+            //   &:nth-child(#{$i}) {
+            //     @include random-bgr();
+            //   }
+            // }
           }
         }
         .post-bottom {
           .reaction {
             display: flex;
-            padding: 10px 5px;
+            padding: 0px;
             font-size: 1rem;
             text-transform: capitalize;
-            font-weight: 900;
+            font-weight: 400;
             span {
               display: block;
               padding: 5px;
@@ -761,7 +771,7 @@ export default {
         a,
         span {
           text-decoration: none;
-          background: $secondary-color;
+          background: $black;
           color: #fff;
           font-size: 1rem;
           font-weight: 700;
@@ -788,16 +798,20 @@ export default {
     }
   }
 }
+// on hone 
 .on-home {
   align-items: center;
 }
+// active category 
 .active-category {
-  background: $secondary-color;
+  background: $contrast-color;
   padding: 5px;
   border-radius: 3px;
   color: #fff !important;
   // border-bottom: 2px solid $secondary-color;
 }
+
+// Media query 
 @media only screen and(max-width:360px) {
   .showdoc {
     .docs {

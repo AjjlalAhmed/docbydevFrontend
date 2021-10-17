@@ -1,6 +1,6 @@
 <template>
   <!-- Wraper  -->
-  <div class="wraper">
+  <div class="edit-profile">
     <!-- Go back btn  -->
     <div class="back">
       <router-link class="back-btn" to="/">
@@ -121,27 +121,30 @@
 </template>
 
 <script>
+// Importing thing we need
 import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import storeUserInfo from "../../helpers/storeUserInfoComposable";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 export default {
   name: "EditProfile",
   setup() {
     // Variables
     const store = useStore();
-    const router = useRouter()
+    const router = useRouter();
     const img = ref(store.getters.currentProfileimage);
     const name = ref(store.getters.currentUsername);
     const bioModel = ref(store.getters.currentBio);
     const skillsModel = ref(store.getters.currentSkills);
     const addressModel = ref(store.getters.currentAddress);
-    const birthdayModel = ref('');
+    const birthdayModel = ref("");
     const genderModel = ref(store.getters.currentGender);
     const phoneModel = ref(store.getters.currentPhone);
     const professionModel = ref(store.getters.currentProfession);
     const siteModel = ref(store.getters.currentSite);
+
     // Functions
+    // This function get image from input
     const getImage = (e) => {
       const files = e.target.files || e.dataTransfer.files;
       if (files && files[0]) {
@@ -152,9 +155,10 @@ export default {
         };
       }
     };
+    // this fuction submit profile data
     const submit = async () => {
-      if(birthdayModel.value = ""){
-        birthdayModel.value = store.getters.currentBirthday
+      if ((birthdayModel.value = "")) {
+        birthdayModel.value = store.getters.currentBirthday;
       }
       const response = await fetch(
         `${process.env.VUE_APP_HOST}user/editprofile`,
@@ -166,24 +170,24 @@ export default {
           },
           body: JSON.stringify({
             token: store.getters.currentToken,
-            oldImgId:store.getters.currentProfileimage,
-            name: name.value.replaceAll("'","`"),
-            bio: bioModel.value.replaceAll("'","`"),
+            oldImgId: store.getters.currentProfileimage,
+            name: name.value.replaceAll("'", "`"),
+            bio: bioModel.value.replaceAll("'", "`"),
             img: img.value,
-            skills: skillsModel.value.replaceAll("'","`"),
-            address: addressModel.value.replaceAll("'","`"),
-            birthday: birthdayModel.value.replaceAll("'","`"),
-            gender: genderModel.value.replaceAll("'","`"),
-            phone: phoneModel.value.replaceAll("'","`"),
-            profession: professionModel.value.replaceAll("'","`"),
-            site: siteModel.value.replaceAll("'","`"),
+            skills: skillsModel.value.replaceAll("'", "`"),
+            address: addressModel.value.replaceAll("'", "`"),
+            birthday: birthdayModel.value.replaceAll("'", "`"),
+            gender: genderModel.value.replaceAll("'", "`"),
+            phone: phoneModel.value.replaceAll("'", "`"),
+            profession: professionModel.value.replaceAll("'", "`"),
+            site: siteModel.value.replaceAll("'", "`"),
           }),
         }
       );
       const data = await response.json();
-      if(data.error == null){
-         storeUserInfo(data);
-         router.push({ path: "/user/userprofile" });
+      if (data.error == null) {
+        storeUserInfo(data);
+        router.push({ path: "/user/userprofile" });
       }
     };
     return {
@@ -205,7 +209,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wraper {
+// edit profile
+.edit-profile {
+  // back
   .back {
     max-width: 1000px;
     margin: auto;
@@ -217,6 +223,7 @@ export default {
       text-decoration: none;
     }
   }
+  // form
   .form {
     max-width: 1000px;
     column-width: 1000px;

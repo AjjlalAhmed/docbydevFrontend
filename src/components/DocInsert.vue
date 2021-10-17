@@ -1,39 +1,43 @@
 <template>
-  <!-- add-doc  -->
-  <div class="wraper">
-    <div class="add-doc">
-      <!-- Form  -->
-      <form class="form">
-        <!-- form-control -->
-        <div class="form-control">
-          <input
-            v-model="docTitle"
-            class="enter-title"
-            type="text"
-            placeholder="New post title here"
-          />
-        </div>
-        <!-- form-control -->
-        <div class="form-control">
-          <p>you can add your custom tag seperate by comma { , }</p>
-          <input
-            v-model="tags"
-            class="tags-input"
-            type="text"
-            placeholder="Add tags here"
-          />
-        </div>
-      </form>
-      <!-- quill-editor  -->
-      <div class="editor-wraper">
-        <quill-editor id="editor" v-model:value="state.content" :options="toolbarOptions" />
-        <button class="post-btn" @click.prevent="post">post</button>
+  <!-- Add-doc  -->
+  <div class="add-doc">
+    <!-- Form  -->
+    <form class="form">
+      <!-- form-control -->
+      <div class="form-control">
+        <input
+          v-model="docTitle"
+          class="enter-title"
+          type="text"
+          placeholder="New post title here"
+        />
       </div>
+      <!-- form-control -->
+      <div class="form-control">
+        <p>you can add your custom tag seperate by comma { , }</p>
+        <input
+          v-model="tags"
+          class="tags-input"
+          type="text"
+          placeholder="Add tags here"
+        />
+      </div>
+    </form>
+    <!-- quill-editor  -->
+    <div class="editor-wraper">
+      <quill-editor
+        id="editor"
+        v-model:value="state.content"
+        :options="toolbarOptions"
+      />
+      <button class="post-btn" @click.prevent="post">post</button>
     </div>
   </div>
+  <!-- Add doc  -->
 </template>
 
 <script>
+// Importing thing we need 
 import { reactive, ref } from "@vue/reactivity";
 import turndown from "turndown";
 import showdown from "showdown";
@@ -85,7 +89,9 @@ export default {
       },
       disabled: false,
     });
+    
     // Functions
+    // This submit doc data 
     const post = async () => {
       // Creating new turndown instance
       const turndownService = new TurndownService();
@@ -100,7 +106,6 @@ export default {
         if (route.name == "AddDoc") {
           to.value = "user/adddoc";
         } else {
-
           to.value = `user/editdoc?docid=${docdata.value[0].id}`;
         }
         const response = await fetch(`${process.env.VUE_APP_HOST}${to.value}`, {
@@ -126,6 +131,7 @@ export default {
         alert("Some field are empty");
       }
     };
+    
     // Watcher
     watch(
       () => props.docdata,
@@ -142,82 +148,85 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wraper {
-  background: #f9f9f9;
-  padding: 10px;
-  .add-doc {
-    max-width: 1200px;
-    margin: 20px auto;
+// add doc 
+.add-doc {
+  max-width: 1000px;
+  column-width: 1000px;
+  margin: 10px;
+  margin-top: 50px;
+  // form 
+  .form {
+    background: #fff;
     border: 1px solid #2222;
-    .form {
-      background: #fff;
-      padding: 10px;
-      .form-control {
-        .enter-title {
-          font-size: 2rem;
-          font-weight: 900;
-          padding: 10px;
-          width: 100%;
-          border: 1px solid #2222;
-          border-radius: 3px;
-        }
-        .tags-input {
-          font-size: 1.5rem;
-          padding: 10px;
-          width: 100%;
-          border: 1px solid #2222;
-          border-radius: 3px;
-        }
-        @mixin random-bgr() {
-          background: rgb(random(100), random(100), random(100));
-        }
-        p {
-          text-transform: capitalize;
-          font-size: 1rem;
-          padding: 10px;
-          margin: 10px 0px;
-          color: $black;
-          font-weight: 700;
-        }
+    padding: 10px;
+    .form-control {
+      .enter-title {
+        font-size: 2rem;
+        font-weight: 900;
+        padding: 10px;
+        width: 100%;
+        border: 1px solid #2222;
+        border-radius: 3px;
+      }
+      .tags-input {
+        font-size: 1.5rem;
+        padding: 10px;
+        width: 100%;
+        border: 1px solid #2222;
+        border-radius: 3px;
+      }
+      @mixin random-bgr() {
+        background: rgb(random(100), random(100), random(100));
+      }
+      p {
+        text-transform: capitalize;
+        font-size: 1rem;
+        padding: 10px;
+        margin: 10px 0px;
+        color: $black;
+        font-weight: 700;
       }
     }
-    .editor-wraper {
+  }
+  // editor wraper 
+  .editor-wraper {
+    background: #fff;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 70vh 60px;
+    border: 1px solid #2222;
+    padding: 10px;
+    #editor {
       background: #fff;
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 1fr 70vh 60px;
-      #editor {
-        background: #fff;
-        border: 0px;
-      }
-      .ql-container.ql-snow {
-        border: 0px !important;
-      }
-      .post-btn {
-        text-transform: capitalize;
-        font-size: 1.5rem;
-        color: #fff;
-        background: $secondary-color;
-        border-radius: 3px;
-        padding: 1px 30px;
-        margin: 10px;
-        font-weight: 400;
-        cursor: pointer;
-        border: 1px solid #2222;
-      }
-      .ql-toolbar .ql-stroke {
-        fill: none;
-        stroke: rgb(170, 169, 169);
-      }
+      border: 0px;
+    }
+    .ql-container.ql-snow {
+      border: 0px !important;
+    }
+    .post-btn {
+      text-transform: capitalize;
+      font-size: 1.5rem;
+      color: #fff;
+      background: $contrast-color;
+      border-radius: 3px;
+      padding: 1px 30px;
+      margin: 10px;
+      font-weight: 400;
+      cursor: pointer;
+      border: 1px solid #2222;
+    }
+    .ql-toolbar .ql-stroke {
+      fill: none;
+      stroke: rgb(170, 169, 169);
+    }
 
-      .ql-toolbar .ql-fill {
-        fill: rgb(155, 154, 154);
-        stroke: rgb(156, 156, 156);
-      }
+    .ql-toolbar .ql-fill {
+      fill: rgb(155, 154, 154);
+      stroke: rgb(156, 156, 156);
+    }
 
-      .ql-toolbar .ql-picker {
-        stroke: rgb(160, 159, 159);
-      }
+    .ql-toolbar .ql-picker {
+      stroke: rgb(160, 159, 159);
     }
   }
 }

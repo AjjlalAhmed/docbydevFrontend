@@ -74,6 +74,7 @@
 </template>
 
 <script>
+// Importing thing we need
 import { ref } from "@vue/reactivity";
 import { watch } from "@vue/runtime-core";
 import moment from "moment";
@@ -87,6 +88,7 @@ export default {
     const route = useRoute();
     const Moment = moment;
     Moment.suppressDeprecationWarnings = true;
+
     // Wacther
     watch(
       () => props.details,
@@ -100,6 +102,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// user details 
 .user-details {
   padding: 30px;
   border: 1px solid #2222;
@@ -112,6 +115,7 @@ export default {
   gap: 30px;
   max-width: 1000px;
   margin: 30px auto;
+  // details left 
   .details-left {
     display: flex;
     align-items: flex-start;
@@ -143,7 +147,7 @@ export default {
       .btn {
         margin: 15px 0px;
         a {
-          background: $secondary-color;
+          background: $contrast-color;
           padding: 5px 20px;
           border: 0px;
           border-radius: 3px;
@@ -156,6 +160,7 @@ export default {
       }
     }
   }
+  // details right 
   .details-right {
     border-left: 1px solid #1111;
     padding: 20px;
@@ -171,6 +176,8 @@ export default {
     }
   }
 }
+
+// Media queries 
 @media only screen and(max-width:950px) {
   .user-details {
     flex-wrap: wrap;

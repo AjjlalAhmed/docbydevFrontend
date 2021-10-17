@@ -1,32 +1,25 @@
 <template>
-  <!-- Wraper  -->
-  <div :class="{ wraper: true }">
-    <!-- SideMenu  -->
-    <SideMenu />
-    <!-- Docs  -->
-    <ShowDocs class="show-doc" :docs="docData" />
-    <!-- Additional feed  -->
-    <AdditionalFeed />
-  </div>
+  <!-- Docs  -->
+  <ShowDocs class="show-doc" :docs="docData" />
+  <!-- Docs  -->
 </template>
 
 <script>
+// Importing thing we need
 import { ref } from "@vue/reactivity";
 import { onBeforeMount, watch } from "@vue/runtime-core";
 import ShowDocs from "../../components/sub-components/ShowDocs.vue";
-import SideMenu from "../../components/SideMenu.vue";
-import AdditionalFeed from "../../components/AdditionalFeed.vue";
 import { useStore } from "vuex";
 export default {
   name: "Home",
-  components: { ShowDocs, SideMenu, AdditionalFeed },
+  components: { ShowDocs },
   setup() {
     // Variables
     const store = useStore();
     const host = process.env.VUE_APP_HOST;
     const docData = ref(null);
-    // Functions
 
+    // Functions
     // This function fetch docs from server
     const fetchingData = async () => {
       // Fetching docs
@@ -41,15 +34,15 @@ export default {
         docData.value = data.error;
       }
     };
-
+    // Side menu togglar
     const showRightMenu = async () => {
       store.commit("addSideMenu", true);
     };
+
     // Life cycle
     onBeforeMount(async () => {
       fetchingData();
     });
-    // Watcher
     return {
       docData,
       host,
@@ -59,14 +52,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.wraper {
-  display: flex;
-  justify-content: center;
-  padding: 50px 0px;
-  margin-top: 50px;
-  position: relative;
-  width: 100%;
-}
-
-</style>
+<style lang="scss" scoped></style>

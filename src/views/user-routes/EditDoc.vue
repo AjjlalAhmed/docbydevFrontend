@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <DocInsert :docdata="docdata" />
-  </div>
+  <!-- DocInsert  -->
+  <DocInsert :docdata="docdata" />
+  <!-- DocInsert  -->
 </template>
 
 <script>
+// Importing thing we need
 import { onBeforeMount, ref } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
@@ -19,8 +20,10 @@ export default {
     const host = process.env.VUE_APP_HOST;
     const docid = route.query.docid;
     const docdata = ref(null);
+
     // Life cycle
     onBeforeMount(async () => {
+      // Fetching old doc data
       const response = await fetch(`${host}user/getdoc/${docid}`, {
         method: "GET",
         headers: new Headers({
@@ -29,6 +32,7 @@ export default {
         }),
       });
       const data = await response.json();
+      // Checking if error
       if (data.error == null) {
         docdata.value = data.doc;
       }

@@ -14,8 +14,9 @@ export default {
 </script>
 
 <style lang="scss" scope>
+// footer 
 footer {
-  background: $secondary-color;
+  background: $black;
   padding: 20px;
   p {
     color: #fff;

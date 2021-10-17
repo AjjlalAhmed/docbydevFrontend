@@ -1,10 +1,11 @@
 <template>
-  <div>
-    <DocInsert />
-  </div>
+  <!-- DocInsert     -->
+  <DocInsert />
+  <!-- DocInsrt  -->
 </template>
 
 <script>
+// Importing thing we need
 import DocInsert from "../../components/DocInsert.vue";
 export default {
   name: "AddDoc",
@@ -13,4 +14,4 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped></style>

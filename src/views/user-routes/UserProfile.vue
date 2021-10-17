@@ -1,13 +1,11 @@
 <template>
-  <div class="user-profiles">
-    <!-- SideMenu  -->
-    <SideMenu />
-    <!-- Profile  -->
-    <Profile :docs="docs" :user="user" />
-  </div>
+  <!-- Profile  -->
+  <Profile :docs="docs" :user="user" />
+  <!-- Profile  -->
 </template>
 
 <script>
+// Importing thing we need
 import { ref } from "@vue/reactivity";
 import { onBeforeMount, watch } from "@vue/runtime-core";
 import { useStore } from "vuex";
@@ -46,8 +44,9 @@ export default {
       bio,
       skills,
     });
+
     // Functions
-    // Fetching profileData & user docData
+    // This fetch profileData & user docData
     const fetchData = async () => {
       const response = await fetch(
         `${process.env.VUE_APP_HOST}user/getuserdata/${store.getters.currentUserid}`,
@@ -66,6 +65,7 @@ export default {
         docs.value = data.error;
       }
     };
+
     // Life cycle
     onBeforeMount(() => {
       fetchData();
@@ -78,13 +78,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.user-profiles {
-  display: flex;
-  justify-content: center;
-  padding: 50px 0px;
-  position: relative;
-  width: 100%;
-  margin-top:50px ;
-}
-</style>
+<style lang="scss" scoped></style>
