@@ -8,7 +8,7 @@
 // Importing thing we need
 import { onBeforeMount, ref } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
-import Profile from "../../components/Profile.vue";
+import Profile from "../components/Profile.vue";
 export default {
   name: "UserPublicProfile",
   components: { Profile },

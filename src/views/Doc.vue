@@ -1,6 +1,6 @@
 <template>
   <!-- Doc  -->
-  <section v-if="docData" class="doc">
+  <section class="doc">
     <!-- Back  -->
     <div class="back">
       <router-link class="back-btn" to="/">
@@ -61,9 +61,10 @@
       class="doc-html"
       v-html="converter.makeHtml(docData.docdata)"
     ></div>
-    <!-- Loading animation  -->
-    <Loading class="loading" v-if="!docData" />
+        <!-- Loading animation  -->
+    <SkeletonLoading :isDoc="true" v-if="!docData" />
   </section>
+  
   <!-- Doc  -->
 </template>
 
@@ -72,11 +73,12 @@
 import { onBeforeMount, ref } from "@vue/runtime-core";
 import { useRoute, useRouter } from "vue-router";
 import showdown from "showdown";
-import Loading from "../../components/Loading.vue";
+import Loading from "../components/Loading.vue";
+import SkeletonLoading from "../components/SkeletonLoading.vue" 
 import higlightJS from "highlight.js";
 export default {
   name: "Doc",
-  components: { Loading },
+  components: { Loading,SkeletonLoading },
   setup() {
     // Variables
     const ShowdownService = showdown;

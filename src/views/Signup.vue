@@ -6,7 +6,7 @@
 
 <script>
 // Importing thing we need
-import Form from "../../components/Form.vue";
+import Form from "../components/Form.vue";
 export default {
   name: "Signup",
   components: { Form },

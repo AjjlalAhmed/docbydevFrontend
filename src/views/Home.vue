@@ -1,6 +1,12 @@
 <template>
   <!-- Docs  -->
-  <ShowDocs class="show-doc" :docs="docData" />
+  <div class="home">
+    <div class="hero">
+      <h1>Break the code barrier</h1>
+      <p>Collaborate and share your knowledge with others.</p>
+    </div>
+    <ShowDocs class="show-doc" :docs="docData" />
+  </div>
   <!-- Docs  -->
 </template>
 
@@ -8,7 +14,7 @@
 // Importing thing we need
 import { ref } from "@vue/reactivity";
 import { onBeforeMount, watch } from "@vue/runtime-core";
-import ShowDocs from "../../components/sub-components/ShowDocs.vue";
+import ShowDocs from "../components/sub-components/ShowDocs.vue";
 import { useStore } from "vuex";
 export default {
   name: "Home",
@@ -52,4 +58,23 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.home{
+  margin-top: 50px;
+  .hero{
+    background: #f9f9f9;
+    margin: 10px;
+    border-radius: 4px;
+    padding: 20px;
+    border: 1px solid #3333;
+    h1{
+      color: $black;
+      font-size: max(1.5rem,2.5rem);
+    }
+    p{
+      font-size: 1.2rem;
+      padding: 10px 0px;
+    }
+  }
+}
+</style>

@@ -1,7 +1,31 @@
 <template>
   <!-- Skeleton loading  -->
   <div>
-    <ul class="o-vertical-spacing o-vertical-spacing--l">
+    <ul v-if="isDoc" class="o-vertical-spacing o-vertical-spacing--l">
+      <li v-for="(item, index) in 5" :key="index" class="o-media">
+        <div class="o-media__body">
+          <div class="o-vertical-spacing">
+            <h3 class="blog-post__headline">
+              <span class="skeleton-box" style="width:55%;"></span>
+            </h3>
+            <p>
+              <span class="skeleton-box" style="width:80%;"></span>
+              <span class="skeleton-box" style="width:90%;"></span>
+              <span class="skeleton-box" style="width:83%;"></span>
+              <span class="skeleton-box" style="width:80%;"></span>
+            </p>
+            <div v-if="index == 0" class="o-media__figure">
+              <span class="skeleton-box"></span>
+            </div>
+            <div class="blog-post__meta">
+              <span class="skeleton-box" style="width:90%;height:200px;"></span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <ul v-else class="o-vertical-spacing o-vertical-spacing--l">
       <li
         class="blog-post o-media"
         v-for="(skeleton, index) in 10"
@@ -38,13 +62,16 @@ import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 export default {
   name: "SkeletonLoading",
-  setup() {
+  props: ["isDoc"],
+  setup(props) {
     // Variables
     const route = useRoute();
     const store = useStore();
-    
+    const isDoc = props.isDoc;
+
     return {
       route,
+      isDoc,
     };
   },
 };

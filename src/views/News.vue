@@ -6,6 +6,7 @@
       <h1 class="intro-heading">
         latest news
       </h1>
+      <p class="intro-text">A New Thinking</p>
     </div>
     <!-- News ul  -->
     <ul v-if="allNews.length != 0" class="news-ul">
@@ -28,7 +29,7 @@
 // Importing thing we need
 import { ref } from "@vue/reactivity";
 import { onBeforeMount } from "@vue/runtime-core";
-import SkeletonLoading from "../../components/SkeletonLoading.vue";
+import SkeletonLoading from "../components/SkeletonLoading.vue";
 import { useRoute } from "vue-router";
 export default {
   name: "Jobs",
@@ -72,12 +73,19 @@ export default {
   // intro
   .intro {
     margin: 0px 10px;
-    padding: 10px;
-    background: #d9eaf5;
+    padding: 20px ;
+    background: #f9f9f9;
+    border: 1px solid #3333;
     .intro-heading {
-      font-size: 2rem;
+      font-size: max(1.5rem, 2.5rem);
       color: $black;
       text-transform: capitalize;
+    }
+    .intro-text {
+      font-size: 1.2rem;
+      color: $black;
+      text-transform: capitalize;
+      padding: 10px 0px;
     }
   }
   // news ul
@@ -120,7 +128,7 @@ export default {
   max-width: 300px;
 }
 
-// Mediad query 
+// Mediad query
 @media only screen and(max-width:750px) {
   .news {
     margin-top: 25px;

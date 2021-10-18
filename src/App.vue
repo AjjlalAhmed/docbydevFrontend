@@ -23,13 +23,15 @@
   <!-- Container  -->
 </template>
 <script>
-// Importing thing we need 
+// Importing thing we need
 import Navbar from "./components/Navbar.vue";
 import Footer from "./components/Footer.vue";
 import SideMenu from "./components/SideMenu.vue";
 import AdditionalFedd from "./components/AdditionalFeed.vue";
 import { useRoute } from "vue-router";
 import { ref, watch } from "@vue/runtime-core";
+import banner from "./assets/images/undraw_project_team_lc5a.svg";
+import { useStore } from "vuex";
 export default {
   name: "App",
   components: { Navbar, Footer, SideMenu, AdditionalFedd },
@@ -38,24 +40,28 @@ export default {
     const route = useRoute();
     const showJobs = ref(true);
     const showNews = ref(true);
+    const store = useStore();
 
     // Watcher
     watch(
       () => route.name,
       () => {
-        // Additional feed filter 
+        // Additional feed filter
         if (route.name == "Jobs") showJobs.value = false;
-        else showJobs.value = true
+        else showJobs.value = true;
         if (route.name == "News") showNews.value = false;
-        else showNews.value = true
+        else showNews.value = true;
         // Setting up title to route name
-        document.title = route.name;
+        // document.title = route.name;
       }
     );
 
     return {
       showNews,
       showJobs,
+      banner,
+      store,
+      route
     };
   },
 };
@@ -78,7 +84,7 @@ export default {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  background: #f9f9f9;
+  background: #f0efef;
   main {
     flex: 2;
     display: flex;

@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Home from "../views/public-routes/Home.vue";
-import Signup from "../views/public-routes/Signup.vue";
-import Login from "../views/public-routes/Login.vue";
-import Profile from "../views/public-routes/UserPublicProfile.vue";
-import Doc from "../views/public-routes/Doc.vue";
-import Jobs from "../views/public-routes/Jobs.vue";
-import News from "../views/public-routes/News.vue";
+import Home from "../views/Home.vue";
+import Signup from "../views/Signup.vue";
+import Login from "../views/Login.vue";
+import Profile from "../views/UserPublicProfile.vue";
+import Doc from "../views/Doc.vue";
+import Jobs from "../views/Jobs.vue";
+import News from "../views/News.vue";
 import UserProfile from "../views/user-routes/UserProfile.vue";
 import EditProfile from "../views/user-routes/EditProfile.vue";
 import EditDoc from "../views/user-routes/EditDoc.vue";
@@ -151,4 +151,12 @@ const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes,
 });
+
+router.beforeEach((to, from, next) => {
+    if (to.query.title)
+        document.title = `${process.env.VUE_APP_TITLE} - ${to.query.title}`;
+    else document.title = `${process.env.VUE_APP_TITLE} - ${to.name}`
+    next();
+});
+
 export default router;

@@ -19,7 +19,7 @@
 
 <script>
 // Importing thing we need
-import AdditionalFeed from "../../components/AdditionalFeed.vue";
+import AdditionalFeed from "../components/AdditionalFeed.vue";
 export default {
   name: "News",
   components: { AdditionalFeed },
@@ -30,21 +30,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 // Intro
 .intro {
   margin: 20px 5px;
   margin-top: 50px;
-  padding: 20px;
-  background: #d9eaf5;
+  padding: 20px ;
+  background: #f9f9f9;
+  border: 1px solid #3333;
   .intro-heading {
-    font-size: 2rem;
-    color: $black;
-  }
-  .intro-text {
-    font-size: 1rem;
+    font-size: max(1.5rem,2.5rem);
     color: $black;
     text-transform: capitalize;
+  }
+  .intro-text {
+    font-size: 1.2rem;
+    color: $black;
+    text-transform: capitalize;
+    padding: 10px 0px;
   }
 }
 // Jobs

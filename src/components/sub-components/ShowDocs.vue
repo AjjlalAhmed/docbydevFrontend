@@ -102,7 +102,7 @@
           </div>
           <!-- Doc title  -->
           <div class="title">
-            <router-link :to="`/doc?id=${doc.id}`"
+            <router-link :to="`/doc?id=${doc.id}&title=${doc.doctitle}`"
               ><h1 class="doc-title">{{ doc.doctitle }}</h1></router-link
             >
           </div>

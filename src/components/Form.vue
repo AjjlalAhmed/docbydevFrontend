@@ -3,12 +3,20 @@
   <div class="form-wraper">
     <!-- sec-1  -->
     <section class="sec-1">
+      <div class="img">
+        <img :src="image" alt="" />
+      </div>
       <!-- form  -->
       <form class="form">
         <!-- head  -->
         <div class="head">
-          <h1 v-if="routeName == 'Login'" class="logo">login</h1>
-          <h1 v-if="routeName == 'Signup'" class="logo">create account</h1>
+          <h1 class="logo">{ docbydev }</h1>
+          <h3 v-if="routeName == 'Signup'" class="title">
+            create your new account
+          </h3>
+          <h3 v-if="routeName == 'Login'" class="title">
+            sign into your account
+          </h3>
         </div>
         <!-- form-control  -->
         <div v-if="routeName == 'Signup'" class="form-control">
@@ -58,14 +66,16 @@
       </form>
     </section>
   </div>
+
   <!-- Form-warper  -->
 </template>
 
 <script>
-// Importing thing we need 
+// Importing thing we need
 import { ref } from "@vue/reactivity";
 import { useRoute, useRouter } from "vue-router";
 import storeUserInfo from "../helpers/storeUserInfoComposable";
+import image from "../assets/images/undraw_Access_account_re_8spm.svg";
 export default {
   name: "Signup",
   setup() {
@@ -162,13 +172,14 @@ export default {
       nameError,
       emailError,
       passwordError,
+      image,
     };
   },
 };
 </script>
 
 <style lang="scss" scope>
-// form wraper 
+// form wraper
 .form-wraper {
   display: block;
   max-width: 1000px;
@@ -176,40 +187,61 @@ export default {
   margin-top: 50px;
   gap: 10px;
   border-radius: 3px;
-  // sec 1 
+  // sec 1
   .sec-1 {
     background: #fff;
-    padding: 30px;
+    // padding: 30px;
     border: 1px solid #3333;
-    .head {
-      .logo {
-        font-size: 2rem;
-        text-transform: capitalize;
-        text-align: left;
-        color: $black;
-        padding: 0px;
-        font-weight: 700;
-      }
-      .title {
-        font-size: 1.2rem;
-        // text-transform: capitalize;
-        color: $black;
-        font-weight: 700;
-        white-space: nowrap;
-        padding: 20px 0px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    justify-content: left;
+    flex-wrap: wrap;
+    margin:0px 20px;
+    // min-height: 70vh;
+    overflow: hidden;
+    .img {
+      background: #f9f9f9;
+      height: max(400px, 600px);
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      max-width: 350px;
+      img {
+        width: 100%;
       }
     }
     .form {
       display: flex;
       flex-direction: column;
       gap: 20px;
+      padding: 20px;
+      .head {
+        .logo {
+          font-size: 2rem;
+          text-transform: capitalize;
+          text-align: left;
+          color: $black;
+          padding: 0px;
+          font-weight: 900;
+          padding: 10px 0px;
+        }
+        .title {
+          font-size: 1.5rem;
+          text-transform: capitalize;
+          color: $black;
+          font-weight: 400;
+          white-space: nowrap;
+          padding: 10px 0px;
+        }
+      }
       .form-control {
         width: 100%;
         background: #fff;
         margin: 10px 0px;
-        // display: flex;
-        // align-items: center;
         border-bottom: 1px solid #5555;
+
         label {
           color: $contrast-color;
           display: inline-block;
@@ -260,11 +292,36 @@ export default {
     }
   }
 }
-// Media query
+// Media queries 
+@media only screen and(max-width:1195px) {
+  .form-wraper{
+    .sec-1{
+      justify-content: center;
+      .img{
+        display: none;
+      }
+      .form{
+        padding:50px 20px;
+      }
+    }
+  }  
+}
 @media only screen and(max-width:830px) {
   .form-wraper {
     margin: 20px;
     margin-top: 0px;
+  }
+}
+@media only screen and(max-width:600px) {
+  .form-wraper {
+    background: #fff;
+    margin: 0;
+    .sec-1{
+      border: 0px;
+      .form{
+        padding: 0px;
+      }
+    }
   }
 }
 </style>
