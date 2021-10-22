@@ -57,7 +57,7 @@
               <img
                 v-if="doc.profileimage"
                 :src="
-                  'https://drive.google.com/uc?export=view&id=' +
+                  'https://res.cloudinary.com/dktrjemao/image/upload/v1634911696/' +
                     doc.profileimage
                 "
                 alt=""
@@ -203,17 +203,20 @@
 </template>
 
 <script>
-// Importing thing we need 
+// Importing thing we need
+// Components
+import Loading from "../Loading.vue";
+import SkeletonLoading from "../SkeletonLoading.vue";
+// Package 
+import moment from "moment";
+// Vue 
 import { ref, watch } from "@vue/runtime-core";
 import { useStore } from "vuex";
 import { useRoute, useRouter } from "vue-router";
-import Loading from "../Loading.vue";
-import SkeletonLoading from "../SkeletonLoading.vue"
-import moment from "moment";
 export default {
   name: "ShowDocs",
   props: ["docs"],
-  components: { Loading ,SkeletonLoading},
+  components: { Loading, SkeletonLoading },
   setup(props) {
     //   Variables
     const store = useStore();
@@ -232,7 +235,7 @@ export default {
     const errorMessage = ref(null);
     const Moment = moment;
     Moment.suppressDeprecationWarnings = true;
-    
+
     //   Function
     // This function add like to doc
     const like = async (e) => {
@@ -421,7 +424,9 @@ export default {
         }
       }
     };
-    
+
+    // Statements
+    // Checkinh if docs
     if (
       docData.value != null &&
       docData.value != "null" &&
@@ -429,8 +434,8 @@ export default {
     ) {
       checkIfLiked(docData.value);
     }
-   
-   // Checkinh if docs
+
+    // Checkinh if docs
     if (props.docs == "Empty") {
       errorMessage.value = props.docs;
     }
@@ -447,6 +452,7 @@ export default {
         }
       }
     );
+
     return {
       docData,
       errorMessage,
@@ -475,7 +481,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// showdoc 
+// showdoc
 .showdoc {
   // margin-top: 100px;
   padding: 0px 10px;
@@ -579,7 +585,6 @@ export default {
             .name {
               font-size: 1rem;
               text-transform: capitalize;
-              font-family: "Montserrat", sans-serif;
               padding-bottom: 5px;
               text-decoration: none;
               display: block;
@@ -657,7 +662,8 @@ export default {
               text-transform: capitalize;
               color: $black;
               padding: 0px;
-              font-weight: 900;
+              font-weight: 700;
+              padding-bottom: 10px;
             }
           }
         }
@@ -676,7 +682,6 @@ export default {
             text-transform: capitalize;
             font-size: 0.9rem;
             border: 1px solid #3333;
-            font-family: "Inconsolata", monospace;
             font-weight: 400;
             // $num-colors: 100;
             // $base-color: #996b4d;
@@ -798,20 +803,18 @@ export default {
     }
   }
 }
-// on hone 
+// on hone
 .on-home {
   align-items: center;
 }
-// active category 
+// active category
 .active-category {
-  background: $contrast-color;
   padding: 5px;
   border-radius: 3px;
-  color: #fff !important;
-  // border-bottom: 2px solid $secondary-color;
+  font-weight: 700;
 }
 
-// Media query 
+// Media query
 @media only screen and(max-width:360px) {
   .showdoc {
     .docs {

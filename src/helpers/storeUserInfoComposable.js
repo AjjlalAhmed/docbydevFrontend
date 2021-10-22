@@ -3,20 +3,20 @@ import store from "../store/index";
 // This fucntion store user info to session & vuex storage
 const storeUserInfo = (data) => {
     // Storing to session storage
-    sessionStorage.setItem("accessToken", data.token);
-    sessionStorage.setItem("username", data.username);
-    sessionStorage.setItem("useremail", data.useremail);
-    sessionStorage.setItem("userid", data.userid);
-    sessionStorage.setItem("bio", data.bio);
-    sessionStorage.setItem("skills", data.skills);
-    sessionStorage.setItem("profileimages", data.profileimage);
-    sessionStorage.setItem("joined", data.joined);
-    sessionStorage.setItem("address", data.address);
-    sessionStorage.setItem("birthday", data.birthday);
-    sessionStorage.setItem("gender", data.gender);
-    sessionStorage.setItem("phone", data.phone);
-    sessionStorage.setItem("profession", data.profession);
-    sessionStorage.setItem("site", data.site);
+    localStorage.setItem("accessToken", data.token);
+    localStorage.setItem("username", data.username);
+    localStorage.setItem("useremail", data.useremail);
+    localStorage.setItem("userid", data.userid);
+    localStorage.setItem("bio", data.bio);
+    localStorage.setItem("skills", data.skills);
+    localStorage.setItem("profileimages", data.profileimage);
+    localStorage.setItem("joined", data.joined);
+    localStorage.setItem("address", data.address);
+    localStorage.setItem("birthday", data.birthday);
+    localStorage.setItem("gender", data.gender);
+    localStorage.setItem("phone", data.phone);
+    localStorage.setItem("profession", data.profession);
+    localStorage.setItem("site", data.site);
     // Storing to vuex
     store.commit("addToken", data.token);
     store.commit("addUsername", data.username);

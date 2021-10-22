@@ -17,7 +17,7 @@
         <li v-if="user" class="nav-item nav-user__item select">
           <img
             v-if="img && img != 'null'"
-            :src="'https://drive.google.com/uc?export=view&id=' + img"
+            :src="'https://res.cloudinary.com/dktrjemao/image/upload/v1634911696/' + img"
             alt=""
           />
           <img
@@ -71,6 +71,7 @@
 </template>
 
 <script>
+// Vue 
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
@@ -243,7 +244,7 @@ header {
   }
 }
 // Media query 
-@media only screen and(max-width:750px) {
+@media only screen and(max-width:950px) {
   header {
     .nav {
       .logo {

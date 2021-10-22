@@ -50,9 +50,11 @@
 
 <script>
 // Importing thing we need 
-import { ref } from "@vue/reactivity";
+// Components
 import ShowDocs from "./sub-components/ShowDocs.vue";
 import UserDetails from "./sub-components/UserDetails.vue";
+// Vue 
+import { ref } from "@vue/reactivity";
 import { watch } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 export default {
@@ -89,6 +91,7 @@ export default {
         user.value = props.user;
       }
     );
+    
     return { route, docs, user };
   },
 };

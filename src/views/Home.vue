@@ -1,20 +1,24 @@
 <template>
-  <!-- Docs  -->
+  <!-- Home  -->
   <div class="home">
+    <!-- Hero  -->
     <div class="hero">
       <h1>Break the code barrier</h1>
       <p>Collaborate and share your knowledge with others.</p>
     </div>
+    <!-- Docs  -->
     <ShowDocs class="show-doc" :docs="docData" />
   </div>
-  <!-- Docs  -->
+  <!-- Home  -->
 </template>
 
 <script>
 // Importing thing we need
+// Components 
+import ShowDocs from "../components/sub-components/ShowDocs.vue";
+// Vue 
 import { ref } from "@vue/reactivity";
 import { onBeforeMount, watch } from "@vue/runtime-core";
-import ShowDocs from "../components/sub-components/ShowDocs.vue";
 import { useStore } from "vuex";
 export default {
   name: "Home",
@@ -47,8 +51,10 @@ export default {
 
     // Life cycle
     onBeforeMount(async () => {
+      // Calling fetch data function 
       fetchingData();
     });
+
     return {
       docData,
       host,
@@ -59,19 +65,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home{
+// home
+.home {
   margin-top: 50px;
-  .hero{
+  // hero
+  .hero {
     background: #f9f9f9;
     margin: 10px;
     border-radius: 4px;
     padding: 20px;
     border: 1px solid #3333;
-    h1{
+    h1 {
       color: $black;
-      font-size: max(1.5rem,2.5rem);
+      font-size: max(1.5rem, 2.5rem);
     }
-    p{
+    p {
       font-size: 1.2rem;
       padding: 10px 0px;
     }

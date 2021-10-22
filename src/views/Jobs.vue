@@ -19,9 +19,10 @@
 
 <script>
 // Importing thing we need
+// Components 
 import AdditionalFeed from "../components/AdditionalFeed.vue";
 export default {
-  name: "News",
+  name: "Jobs",
   components: { AdditionalFeed },
   setup() {
     return {};

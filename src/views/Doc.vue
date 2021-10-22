@@ -61,24 +61,27 @@
       class="doc-html"
       v-html="converter.makeHtml(docData.docdata)"
     ></div>
-        <!-- Loading animation  -->
+    <!-- Loading animation  -->
     <SkeletonLoading :isDoc="true" v-if="!docData" />
   </section>
-  
+
   <!-- Doc  -->
 </template>
 
 <script>
-// Importing thing we need  
-import { onBeforeMount, ref } from "@vue/runtime-core";
-import { useRoute, useRouter } from "vue-router";
-import showdown from "showdown";
+// Importing thing we need
+// Components
 import Loading from "../components/Loading.vue";
-import SkeletonLoading from "../components/SkeletonLoading.vue" 
+import SkeletonLoading from "../components/SkeletonLoading.vue";
+// Packages
 import higlightJS from "highlight.js";
+import showdown from "showdown";
+// Vue
+import { useRoute, useRouter } from "vue-router";
+import { onBeforeMount, ref } from "@vue/runtime-core";
 export default {
   name: "Doc",
-  components: { Loading,SkeletonLoading },
+  components: { Loading, SkeletonLoading },
   setup() {
     // Variables
     const ShowdownService = showdown;
@@ -91,31 +94,31 @@ export default {
 
     //  Life cycle
     onBeforeMount(async () => {
-      // Fetching doc data 
+      // Fetching doc data
       const response = await fetch(
         `${process.env.VUE_APP_HOST}getdoc/${id.value}`
       );
       const data = await response.json();
-      // Checking if error 
+      // Checking if error
       if (data.error == null) {
         docData.value = data.docs[0];
+        // Activating higlight js
         setTimeout(() => {
           const pre = document.getElementsByTagName("pre");
           for (var i = 0; i < pre.length; i++) {
             HljsService.highlightBlock(pre[i]);
           }
         }, 200);
-      } else {
-        router.push("/");
-      }
+      } else router.push({ path: "/" });
     });
+
     return { docData, converter };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-// doc 
+// doc
 .doc {
   max-width: 1000px;
   column-width: 1000px;
@@ -124,7 +127,8 @@ export default {
   padding: 50px;
   border-radius: 5px;
   background: #fff;
-  // Back  
+  height: fit-content;
+  // Back
   .back {
     max-width: 1000px;
     margin: auto;
@@ -136,7 +140,7 @@ export default {
       text-decoration: none;
     }
   }
-  // doc top 
+  // doc top
   .doc-top {
     .title {
       font-size: 2.5rem;
@@ -157,7 +161,6 @@ export default {
         text-transform: capitalize;
         font-size: 0.9rem;
         border: 1px solid #3333;
-        font-family: "Inconsolata", monospace;
       }
     }
     .auther {
@@ -189,7 +192,7 @@ export default {
       }
     }
   }
-  // doc html 
+  // doc html
   .doc-html :deep(p) {
     padding: 5px 0px;
     font-size: 1.1rem;
@@ -201,7 +204,6 @@ export default {
   .doc-html :deep(pre) {
     padding: 10px;
     overflow: auto;
-    font-family: "Inconsolata", monospace;
     font-weight: 400;
     line-height: 1.8rem;
     letter-spacing: 1px;
@@ -235,7 +237,7 @@ export default {
     font-size: 1.1rem;
   }
 }
-// Loading 
+// Loading
 .loading {
   margin-top: 200px;
 }

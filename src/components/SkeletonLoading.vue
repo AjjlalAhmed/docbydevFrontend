@@ -58,6 +58,7 @@
 
 <script>
 // Importing thing we need
+// Vue 
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 export default {

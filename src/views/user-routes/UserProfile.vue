@@ -6,11 +6,13 @@
 
 <script>
 // Importing thing we need
+// Components
+import Profile from "../../components/Profile.vue";
+import SideMenu from "../../components/SideMenu.vue";
+// Vue 
 import { ref } from "@vue/reactivity";
 import { onBeforeMount, watch } from "@vue/runtime-core";
 import { useStore } from "vuex";
-import Profile from "../../components/Profile.vue";
-import SideMenu from "../../components/SideMenu.vue";
 export default {
   name: "UserProfile",
   components: { Profile, SideMenu },
@@ -70,6 +72,7 @@ export default {
     onBeforeMount(() => {
       fetchData();
     });
+    
     return {
       docs,
       user,

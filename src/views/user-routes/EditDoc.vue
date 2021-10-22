@@ -6,10 +6,12 @@
 
 <script>
 // Importing thing we need
+// Components
+import DocInsert from "../../components/DocInsert.vue";
+// Vue 
 import { onBeforeMount, ref } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import DocInsert from "../../components/DocInsert.vue";
 export default {
   name: "EditDoc",
   components: { DocInsert },
@@ -37,6 +39,7 @@ export default {
         docdata.value = data.doc;
       }
     });
+
     return { docdata };
   },
 };

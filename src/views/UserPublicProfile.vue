@@ -6,9 +6,11 @@
 
 <script>
 // Importing thing we need
+// Components
+import Profile from "../components/Profile.vue";
+// Vue
 import { onBeforeMount, ref } from "@vue/runtime-core";
 import { useRoute } from "vue-router";
-import Profile from "../components/Profile.vue";
 export default {
   name: "UserPublicProfile",
   components: { Profile },
@@ -21,12 +23,12 @@ export default {
 
     // Life cycle
     onBeforeMount(async () => {
-      // Fetching user profile data 
+      // Fetching user profile data
       const response = await fetch(
         `${process.env.VUE_APP_HOST}userprofile/${userid}`
       );
       const data = await response.json();
-      // Checking if error 
+      // Checking if error
       if (data.error == null) {
         user.value = {
           profileimage: data.profileimage,
@@ -45,6 +47,7 @@ export default {
         docs.value = data.docs;
       }
     });
+
     return { user, docs };
   },
 };

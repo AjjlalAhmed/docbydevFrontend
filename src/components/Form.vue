@@ -3,6 +3,7 @@
   <div class="form-wraper">
     <!-- sec-1  -->
     <section class="sec-1">
+      <!-- Img  -->
       <div class="img">
         <img :src="image" alt="" />
       </div>
@@ -20,35 +21,47 @@
         </div>
         <!-- form-control  -->
         <div v-if="routeName == 'Signup'" class="form-control">
-          <label> <i class="fa fa-user" aria-hidden="true"></i> </label>
-          <input
-            v-model="name"
-            placeholder="Name"
-            autocomplete="username"
-            type="text"
-          />
+          <div class="input">
+            <label> <i class="fa fa-user" aria-hidden="true"></i> </label>
+            <input
+              v-model="name"
+              placeholder="Name"
+              autocomplete="username"
+              type="text"
+            />
+          </div>
           <span class="error"> {{ nameError }}</span>
         </div>
         <!-- form-control  -->
         <div class="form-control">
-          <label> <i class="fa fa-envelope" aria-hidden="true"></i> </label>
-          <input
-            v-model="email"
-            placeholder="Email"
-            autocomplete="email"
-            type="email"
-          />
+          <div class="input">
+            <label> <i class="fa fa-envelope" aria-hidden="true"></i> </label>
+            <input
+              v-model="email"
+              placeholder="Email"
+              autocomplete="email"
+              type="email"
+            />
+          </div>
           <span class="error">{{ emailError }}</span>
         </div>
         <!-- form-control  -->
         <div class="form-control">
-          <label> <i class="fa fa-unlock-alt" aria-hidden="true"></i> </label>
-          <input
-            v-model="password"
-            autocomplete="current-password"
-            type="password"
-            placeholder="Password"
-          />
+          <div class="input">
+            <label> <i class="fa fa-unlock-alt" aria-hidden="true"></i> </label>
+            <input
+              v-model="password"
+              autocomplete="current-password"
+              :type="passwordState"
+              placeholder="Password"
+            />
+            <span
+              @click="passwordTogglar"
+              v-html="passwordIcon"
+              class="hide-show"
+            >
+            </span>
+          </div>
           <span class="error">{{ passwordError }}</span>
         </div>
         <!-- form-control-  -->
@@ -66,16 +79,19 @@
       </form>
     </section>
   </div>
-
   <!-- Form-warper  -->
 </template>
 
 <script>
 // Importing thing we need
+// Helper
+import storeUserInfo from "../helpers/storeUserInfoComposable";
+// Image
+import image from "../assets/images/undraw_Access_account_re_8spm.svg";
+// Vue
 import { ref } from "@vue/reactivity";
 import { useRoute, useRouter } from "vue-router";
-import storeUserInfo from "../helpers/storeUserInfoComposable";
-import image from "../assets/images/undraw_Access_account_re_8spm.svg";
+import { useStore } from "vuex";
 export default {
   name: "Signup",
   setup() {
@@ -83,6 +99,7 @@ export default {
     const route = useRoute();
     const router = useRouter();
     const routeName = route.name;
+    const store = useStore();
     const name = ref("");
     const email = ref("");
     const password = ref("");
@@ -90,6 +107,10 @@ export default {
     const emailError = ref("");
     const passwordError = ref("");
     const emailValidator = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordState = ref("Password");
+    const passwordIcon = ref(
+      `<i class="fa fa-eye-slash" aria-hidden="true"></i>`
+    );
 
     // Functions
     // This function submit form to server
@@ -106,6 +127,8 @@ export default {
       if (data.error == null) {
         try {
           storeUserInfo(data);
+          store.commit("addAlertPopupMessage", `${data.username} logged in.`);
+          store.commit("addShowAlertPopupMessage", true);
           router.push({ path: "/user/userprofile" });
         } catch (e) {
           console.log(e);
@@ -162,6 +185,17 @@ export default {
         displayError();
       }
     };
+    // This function show & hide password value
+    const passwordTogglar = () => {
+      if (passwordState.value == "Password") {
+        passwordState.value = "Text";
+        passwordIcon.value = `<i class="fa fa-eye" aria-hidden="true"></i>`;
+      } else {
+        passwordState.value = "Password";
+        passwordIcon.value = `<i class="fa fa-eye-slash" aria-hidden="true"></i>`;
+      }
+    };
+
     return {
       routeName,
       submitSignupForm,
@@ -173,6 +207,9 @@ export default {
       emailError,
       passwordError,
       image,
+      passwordState,
+      passwordTogglar,
+      passwordIcon,
     };
   },
 };
@@ -190,16 +227,13 @@ export default {
   // sec 1
   .sec-1 {
     background: #fff;
-    // padding: 30px;
     border: 1px solid #3333;
-    border-radius: 30px;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     gap: 50px;
     justify-content: left;
-    flex-wrap: wrap;
-    margin:0px 20px;
-    // min-height: 70vh;
+    margin: 0px 20px;
     overflow: hidden;
     .img {
       background: #f9f9f9;
@@ -207,7 +241,7 @@ export default {
       display: flex;
       align-items: center;
       padding: 10px;
-      max-width: 350px;
+      width: 30%;
       img {
         width: 100%;
       }
@@ -240,35 +274,51 @@ export default {
         width: 100%;
         background: #fff;
         margin: 10px 0px;
-        border-bottom: 1px solid #5555;
-
-        label {
-          color: $contrast-color;
-          display: inline-block;
-        }
-        input {
-          border: 0px;
-          border-radius: 3px;
-          text-indent: 15px;
-          padding: 10px 0px;
-          width: 90%;
-          font-size: 1rem;
-          background: #fff;
-          font-family: FontAwesome, Poppins;
-          display: inline-block;
-          &:focus {
+        .input {
+          display: flex;
+          align-items: center;
+          border: 1px solid #2222;
+          padding: 0px 10px;
+          label {
+            color: $contrast-color;
+            display: inline-block;
+            min-width: 25px;
+            border-right: 1px solid #2222;
+            padding: 10px 0px;
+            padding-right: 10px;
+          }
+          input {
             border: 0px;
-            background: transparent;
-            outline: none;
+            border-radius: 3px;
+            text-indent: 15px;
+            padding: 10px 0px;
+            width: 80%;
+            font-size: 1rem;
+            background: #fff;
+            font-family: FontAwesome, "Raleway";
+            display: inline-block;
+            border-left: 0px;
+            &:focus {
+              border: 0px;
+              background: transparent;
+              outline: none;
+            }
+          }
+          input:-webkit-autofill,
+          input:-webkit-autofill:hover,
+          input:-webkit-autofill:focus,
+          input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px white inset !important;
+          }
+          .hide-show {
+            display: inline-block;
+            color: rgba(110, 110, 110, 0.747);
+            cursor: pointer;
+            i {
+              pointer-events: none;
+            }
           }
         }
-        input:-webkit-autofill,
-        input:-webkit-autofill:hover,
-        input:-webkit-autofill:focus,
-        input:-webkit-autofill:active {
-          -webkit-box-shadow: 0 0 0 30px white inset !important;
-        }
-
         .error {
           font-size: 0.8rem;
           color: crimson;
@@ -292,19 +342,19 @@ export default {
     }
   }
 }
-// Media queries 
+// Media queries
 @media only screen and(max-width:1195px) {
-  .form-wraper{
-    .sec-1{
+  .form-wraper {
+    .sec-1 {
       justify-content: center;
-      .img{
+      .img {
         display: none;
       }
-      .form{
-        padding:50px 20px;
+      .form {
+        padding: 50px 20px;
       }
     }
-  }  
+  }
 }
 @media only screen and(max-width:830px) {
   .form-wraper {
@@ -316,9 +366,9 @@ export default {
   .form-wraper {
     background: #fff;
     margin: 0;
-    .sec-1{
+    .sec-1 {
       border: 0px;
-      .form{
+      .form {
         padding: 0px;
       }
     }

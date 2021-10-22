@@ -114,20 +114,22 @@ const routes = [
     {
         path: "/user/logout",
         beforeEnter: async(to, from, next) => {
-            sessionStorage.removeItem("accessToken");
-            sessionStorage.removeItem("username");
-            sessionStorage.removeItem("useremail");
-            sessionStorage.removeItem("userid");
-            sessionStorage.removeItem("bio");
-            sessionStorage.removeItem("skills");
-            sessionStorage.removeItem("profileimages");
-            sessionStorage.removeItem("joined");
-            sessionStorage.removeItem("address");
-            sessionStorage.removeItem("birthday");
-            sessionStorage.removeItem("gender");
-            sessionStorage.removeItem("phone");
-            sessionStorage.removeItem("profession");
-            sessionStorage.removeItem("site");
+            store.commit("addAlertPopupMessage", `${store.getters.currentUsername} logout.`);
+            store.commit("addShowAlertPopupMessage", true);
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("username");
+            localStorage.removeItem("useremail");
+            localStorage.removeItem("userid");
+            localStorage.removeItem("bio");
+            localStorage.removeItem("skills");
+            localStorage.removeItem("profileimages");
+            localStorage.removeItem("joined");
+            localStorage.removeItem("address");
+            localStorage.removeItem("birthday");
+            localStorage.removeItem("gender");
+            localStorage.removeItem("phone");
+            localStorage.removeItem("profession");
+            localStorage.removeItem("site");
             store.commit("addToken", null);
             store.commit("addUsername", null);
             store.commit("addUseremail", null);
@@ -155,7 +157,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     if (to.query.title)
         document.title = `${process.env.VUE_APP_TITLE} - ${to.query.title}`;
-    else document.title = `${process.env.VUE_APP_TITLE} - ${to.name}`
+    else document.title = `${process.env.VUE_APP_TITLE} - ${to.name}`;
     next();
 });
 

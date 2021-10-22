@@ -59,11 +59,14 @@
 
 <script>
 // Importing thing we need
+// Components 
+import SkeletonLoading from "../components/SkeletonLoading.vue";
+// Package 
+import moment from "moment";
+// Vue 
 import { ref } from "@vue/reactivity";
 import { onBeforeMount, watch } from "@vue/runtime-core";
-import moment from "moment";
 import { useRoute } from "vue-router";
-import SkeletonLoading from "../components/SkeletonLoading.vue";
 export default {
   name: "AdditionalFeed",
   props: ["showJobs", "showNews", "active"],
@@ -158,9 +161,10 @@ export default {
 <style lang="scss" scoped>
 // additional feed
 .additional-feed {
-  max-width: 300px;
+  min-width: 300px;
   margin: 0px 5px;
   margin-top: 50px;
+  // job list 
   .jobs-list {
     list-style: none;
     li {
@@ -172,6 +176,7 @@ export default {
       padding: 0px 10px;
       padding-top: 10px;
       background: #fff;
+      min-width: 300px;
       .company {
         display: flex;
         gap: 5px;
@@ -273,6 +278,7 @@ export default {
       background: transparent;
     }
   }
+  // news list 
   .news-list {
     list-style: none;
     padding-top: 10px;
@@ -319,7 +325,7 @@ export default {
   }
 }
 
-// Media query
+// Media queries
 @media only screen and(max-width:950px) {
   .additional-feed {
     display: none;

@@ -26,6 +26,7 @@
 
 <script>
 // Importing thing we need
+// Vue 
 import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import { watch } from "@vue/runtime-core";
@@ -117,6 +118,7 @@ export default {
         createItems();
       }
     );
+    
     return {
       showRightMenu,
       showRightSide,
@@ -163,7 +165,7 @@ export default {
   color: $contrast-color;
 }
 // Media queries 
-@media only screen and(max-width:750px) {
+@media only screen and(max-width:950px) {
   .side-bar__right {
     display: none;
   }

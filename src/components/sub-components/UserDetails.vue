@@ -7,7 +7,7 @@
         <img
           v-if="details.profileimage && details.profileimage != 'null'"
           :src="
-            'https://drive.google.com/uc?export=view&id=' + details.profileimage
+            'https://res.cloudinary.com/dktrjemao/image/upload/v1634911696/' + details.profileimage
           "
           alt=""
         />
@@ -75,9 +75,11 @@
 
 <script>
 // Importing thing we need
+// Package 
+import moment from "moment";
+// Vue 
 import { ref } from "@vue/reactivity";
 import { watch } from "@vue/runtime-core";
-import moment from "moment";
 import { useRoute } from "vue-router";
 export default {
   name: "UserDetails",
@@ -96,6 +98,7 @@ export default {
         details.value = props.details;
       }
     );
+    
     return { details, Moment, route };
   },
 };

@@ -3,27 +3,36 @@ export default createStore({
     state: {
         // Site related
         showRightSide: false,
+        alertPopupMessage: [],
+        showAlertPopupMessage: false,
         // User related
-        token: sessionStorage.getItem("accessToken"),
-        username: sessionStorage.getItem("username"),
-        useremail: sessionStorage.getItem("useremail"),
-        userid: sessionStorage.getItem("userid"),
-        bio: sessionStorage.getItem("bio"),
-        skills: sessionStorage.getItem("skills"),
-        profileimage: sessionStorage.getItem("profileimages"),
-        jonied: sessionStorage.getItem("joined"),
-        address: sessionStorage.getItem("address"),
-        birthday: sessionStorage.getItem("birthday"),
-        gender: sessionStorage.getItem("gender"),
-        phone: sessionStorage.getItem("phone"),
-        profession: sessionStorage.getItem("profession"),
-        site: sessionStorage.getItem("site"),
+        token: localStorage.getItem("accessToken"),
+        username: localStorage.getItem("username"),
+        useremail: localStorage.getItem("useremail"),
+        userid: localStorage.getItem("userid"),
+        bio: localStorage.getItem("bio"),
+        skills: localStorage.getItem("skills"),
+        profileimage: localStorage.getItem("profileimages"),
+        jonied: localStorage.getItem("joined"),
+        address: localStorage.getItem("address"),
+        birthday: localStorage.getItem("birthday"),
+        gender: localStorage.getItem("gender"),
+        phone: localStorage.getItem("phone"),
+        profession: localStorage.getItem("profession"),
+        site: localStorage.getItem("site"),
     },
     mutations: {
         // Site related
         addSideMenu(state, payload) {
             if (state.showRightSide != true) state.showRightSide = payload;
             else state.showRightSide = false;
+        },
+        addAlertPopupMessage(state, payload) {
+            state.alertPopupMessage.push(payload);
+        },
+        addShowAlertPopupMessage(state, payload) {
+            if (payload == false) state.alertPopupMessage = []
+            state.showAlertPopupMessage = payload;
         },
         // User related
         addToken(state, payload) {
@@ -73,6 +82,12 @@ export default createStore({
         // Site related
         currentMenuValue: (state) => {
             return state.showRightSide;
+        },
+        currentAlertPopupMessage: (state) => {
+            return state.alertPopupMessage;
+        },
+        currentShowAlertPopupMessage: (state) => {
+            return state.showAlertPopupMessage;
         },
         // User related
         currentToken: (state) => {

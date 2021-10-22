@@ -37,14 +37,16 @@
 </template>
 
 <script>
-// Importing thing we need 
-import { reactive, ref } from "@vue/reactivity";
+// Importing thing we need
+// pACKAGES
 import turndown from "turndown";
 import showdown from "showdown";
+import { quillEditor, Quill } from "vue3-quill";
+//Vue
+import { reactive, ref } from "@vue/reactivity";
 import { useStore } from "vuex";
 import { useRouter, useRoute } from "vue-router";
 import { watch } from "@vue/runtime-core";
-import { quillEditor, Quill } from "vue3-quill";
 export default {
   name: "DocInsert",
   props: ["docdata"],
@@ -89,9 +91,9 @@ export default {
       },
       disabled: false,
     });
-    
+
     // Functions
-    // This submit doc data 
+    // This submit doc data
     const post = async () => {
       // Creating new turndown instance
       const turndownService = new TurndownService();
@@ -123,6 +125,10 @@ export default {
         });
         const data = await response.json();
         if (data.error == null) {
+          if (props.docdata)
+            store.commit("addAlertPopupMessage", `doc updated.`);
+          else store.commit("addAlertPopupMessage", `new doc added.`);
+          store.commit("addShowAlertPopupMessage", true);
           router.push({ path: "/" });
         } else {
           alert(data.errorMessage);
@@ -131,7 +137,7 @@ export default {
         alert("Some field are empty");
       }
     };
-    
+
     // Watcher
     watch(
       () => props.docdata,
@@ -142,19 +148,20 @@ export default {
         state.content = converter.makeHtml(docdata.value[0].docdata);
       }
     );
+
     return { toolbarOptions, post, tags, docTitle, state };
   },
 };
 </script>
 
 <style lang="scss" scoped>
-// add doc 
+// add doc
 .add-doc {
   max-width: 1000px;
   column-width: 1000px;
   margin: 10px;
   margin-top: 50px;
-  // form 
+  // form
   .form {
     background: #fff;
     border: 1px solid #2222;
@@ -188,7 +195,7 @@ export default {
       }
     }
   }
-  // editor wraper 
+  // editor wraper
   .editor-wraper {
     background: #fff;
     display: grid;

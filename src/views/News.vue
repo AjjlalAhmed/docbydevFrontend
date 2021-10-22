@@ -27,12 +27,14 @@
 
 <script>
 // Importing thing we need
+// Components 
+import SkeletonLoading from "../components/SkeletonLoading.vue";
+// Vue 
 import { ref } from "@vue/reactivity";
 import { onBeforeMount } from "@vue/runtime-core";
-import SkeletonLoading from "../components/SkeletonLoading.vue";
 import { useRoute } from "vue-router";
 export default {
-  name: "Jobs",
+  name: "News",
   components: { SkeletonLoading },
   setup() {
     // Variables
@@ -59,6 +61,7 @@ export default {
         });
       }
     });
+
     return { allNews };
   },
 };

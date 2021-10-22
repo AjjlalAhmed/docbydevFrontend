@@ -122,9 +122,11 @@
 
 <script>
 // Importing thing we need
+// Components
+import storeUserInfo from "../../helpers/storeUserInfoComposable";
+// Vue
 import { ref } from "@vue/reactivity";
 import { useStore } from "vuex";
-import storeUserInfo from "../../helpers/storeUserInfoComposable";
 import { useRouter } from "vue-router";
 export default {
   name: "EditProfile",
@@ -187,9 +189,12 @@ export default {
       const data = await response.json();
       if (data.error == null) {
         storeUserInfo(data);
+        store.commit("addAlertPopupMessage", `${data.username} profile updated.`);
+        store.commit("addShowAlertPopupMessage", true);
         router.push({ path: "/user/userprofile" });
       }
     };
+
     return {
       name,
       bioModel,
