@@ -149,4 +149,11 @@ export default {
     }
   }
 }
+@media only screen and(max-width:500px) {
+  .container{
+    main{
+      padding:35px 0px;
+    }
+  }
+}
 </style>

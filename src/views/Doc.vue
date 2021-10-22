@@ -29,7 +29,7 @@
           <img
             v-if="docData.profileimage"
             :src="
-              'https://drive.google.com/uc?export=view&id=' +
+              'https://res.cloudinary.com/dktrjemao/image/upload/v1634911696/' +
                 docData.profileimage
             "
             alt=""
@@ -121,13 +121,13 @@ export default {
 // doc
 .doc {
   max-width: 1000px;
-  column-width: 1000px;
   margin: 50px 10px;
   border: 1px solid #2222;
   padding: 50px;
   border-radius: 5px;
   background: #fff;
   height: fit-content;
+  //column-width: 1000px;
   // Back
   .back {
     max-width: 1000px;
@@ -251,7 +251,7 @@ export default {
 }
 @media only screen and(max-width:520px) {
   .doc {
-    padding: 10px;
+    padding:30px 10px;
     max-width: 100%;
     .doc-top {
       .title {

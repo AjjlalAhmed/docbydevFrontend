@@ -77,12 +77,18 @@ export default {
     border: 1px solid #3333;
     h1 {
       color: $black;
-      font-size: max(1.5rem, 2.5rem);
+      font-size: clamp(0.9rem, calc(1vw + 1rem), 2.5rem);
     }
     p {
-      font-size: 1.2rem;
+      font-size: clamp(0.8rem, calc(1vw + .5rem), 2.5rem);
       padding: 10px 0px;
     }
+  }
+}
+// Media query
+@media only screen and(max-width:750px) {
+  .home{
+    margin-top: 0px;
   }
 }
 </style>
